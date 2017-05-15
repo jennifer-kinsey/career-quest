@@ -14,6 +14,5 @@ group :test do
   gem "capybara"
   gem "pry"
   gem "shoulda-matchers", '~> 2.0'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
 end
-
-gem "shoulda-matchers", '~> 2.0'

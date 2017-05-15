@@ -67,6 +67,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    shoulda-callback-matchers (1.1.4)
+      activesupport (>= 3)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     sinatra (2.0.0)
@@ -103,6 +105,7 @@ DEPENDENCIES
   rake
   rb-readline
   rspec
+  shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers (~> 2.0)
   sinatra
   sinatra-activerecord
