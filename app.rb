@@ -41,14 +41,10 @@ post "/registrations" do
 end
 
 post "/sessions" do
-  @user = UserCredential.find_by(email: params["user-email"], password: params["user-password"])
-  if !@user.nil?
-    if @user.errors.any?
-      erb :error
-    else
-      session[:user] = @user.id
-      redirect "/users/home"
-    end
+  @user = UserCredential.find_by(email: params["user-email"]).try(:authenticate, params["user-password"])
+  if @user
+    session[:user] = @user.id
+    redirect "/users/home"
   else
     erb :error
   end

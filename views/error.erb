@@ -1,10 +1,10 @@
 <h2>Oops, there was an error!</h2>
 
 
-<% if @user.nil? %>
-  <h3>Username or password did not match</h3>
-<% else %>
+<% if @user %>
   <% @user.errors.full_messages.each do |message| %>
     <h3><%= message %></h3>
   <% end %>
+<% else %>
+  <h3>Username or password did not match</h3>
 <% end %>
