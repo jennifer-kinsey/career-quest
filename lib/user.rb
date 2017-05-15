@@ -1,5 +1,7 @@
 class UserCredential < ActiveRecord::Base
   belongs_to :user_detail
+  validates(:email, {presence: true, length: { maximum: 32}})
+  validates(:password, {presence: true, length: { maximum: 32}})
 end
 
 class UserDetail < ActiveRecord::Base
@@ -8,4 +10,6 @@ class UserDetail < ActiveRecord::Base
   belongs_to :correspondence
   has_many :contacts, through: :correspondence
   has_many :companies, through: :position
+
+  validates(:name, {presence: true, length: { maximum: 32}})
 end
