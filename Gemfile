@@ -8,6 +8,7 @@ gem "pg"
 gem "sinatra"
 gem "pry-byebug"
 gem "rb-readline"
+gem "bcrypt"
 
 group :test do
   gem "rspec"
