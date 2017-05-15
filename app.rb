@@ -27,7 +27,11 @@ get "/registrations/signup" do
 end
 
 post "/registrations" do
-  @user = UserCredential.create({email: params["user-email"], password: params["user-password"]})
+  @user = UserCredential.create({
+    email: params["user-email"],
+    password: params["user-password"],
+    name: params["user-name"],
+  })
   if @user.errors.any?
     erb :error
   else
