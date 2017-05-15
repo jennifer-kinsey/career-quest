@@ -12,6 +12,11 @@ get "/sessions/login" do
   erb :"/sessions/login"
 end
 
+get "/sessions/logout" do
+  session[:user].clear
+  redirect "/"
+end
+
 get "/users/home" do
   @user = UserCredential.find(session[:user])
   erb :"/users/home"
@@ -22,9 +27,13 @@ get "/registrations/signup" do
 end
 
 post "/registrations" do
-  @user = UserCredential.create({email: params["user-email"], password: params["user-password"]})
+  @user = UserCredential.create({
+    email: params["user-email"],
+    password: params["user-password"],
+    name: params["user-name"],
+  })
   if @user.errors.any?
-    erb :"/error"
+    erb :error
   else
     session[:user] = @user.id
     redirect "/users/home"
@@ -32,11 +41,11 @@ post "/registrations" do
 end
 
 post "/sessions" do
-  @user = UserCredential.find_by(email: params["user-email"], password: params["user-password"])
-  if @user.errors.any?
-    erb :"/error"
-  else
+  @user = UserCredential.find_by(email: params["user-email"]).try(:authenticate, params["user-password"])
+  if @user
     session[:user] = @user.id
     redirect "/users/home"
+  else
+    erb :error
   end
 end
