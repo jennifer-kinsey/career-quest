@@ -2,10 +2,56 @@ require "bundler/setup"
 Bundler.require :default
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
+use Rack::Session::Cookie, :secret => '877de719-65d4-4f40-83bf-3b83d56d40db'
+
 get "/" do
   @user = UserDetail.create({name: "Grady"})
   erb :index
 end
+
+get "/sessions/login" do
+  erb :"/sessions/login"
+end
+
+get "/sessions/logout" do
+  session[:user].clear
+  redirect "/"
+end
+
+get "/users/home" do
+  @user = UserCredential.find(session[:user])
+  erb :"/users/home"
+end
+
+get "/registrations/signup" do
+  erb :"/registrations/signup"
+end
+
+post "/registrations" do
+  @user = UserCredential.create({
+    email: params["user-email"],
+    password: params["user-password"],
+    name: params["user-name"],
+  })
+  if @user.errors.any?
+    erb :error
+  else
+    session[:user] = @user.id
+    redirect "/users/home"
+  end
+end
+
+post "/sessions" do
+  @user = UserCredential.find_by(email: params["user-email"]).try(:authenticate, params["user-password"])
+  if @user
+    session[:user] = @user.id
+    redirect "/users/home"
+
+  else
+    erb :error
+  end
+end
+
 
 get '/profile/:id' do
   @user = UserDetail.find(params['id'])
@@ -70,6 +116,45 @@ post '/profile/:id/add_new_company' do
   position.update({company_id: @new_company.id })
   if @new_company.save
     redirect "/profile/#{@user.id}"
+=======
+get "/sessions/login" do
+  erb :"/sessions/login"
+end
+
+get "/sessions/logout" do
+  session[:user].clear
+  redirect "/"
+end
+
+get "/users/home" do
+  @user = UserCredential.find(session[:user])
+  erb :"/users/home"
+end
+
+get "/registrations/signup" do
+  erb :"/registrations/signup"
+end
+
+post "/registrations" do
+  @user = UserCredential.create({
+    email: params["user-email"],
+    password: params["user-password"],
+    name: params["user-name"],
+  })
+  if @user.errors.any?
+    erb :error
+  else
+    session[:user] = @user.id
+    redirect "/users/home"
+  end
+end
+
+post "/sessions" do
+  @user = UserCredential.find_by(email: params["user-email"]).try(:authenticate, params["user-password"])
+  if @user
+    session[:user] = @user.id
+    redirect "/users/home"
+
   else
     erb :error
   end

@@ -16,6 +16,8 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
     backports (3.8.0)
+    bcrypt (3.1.11)
+    byebug (9.0.6)
     capybara (2.14.0)
       addressable
       mime-types (>= 1.16)
@@ -42,6 +44,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     public_suffix (2.0.5)
     rack (2.0.3)
     rack-protection (2.0.0)
@@ -49,6 +54,7 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     rake (12.0.0)
+    rb-readline (0.5.4)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -62,6 +68,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    shoulda-callback-matchers (1.1.4)
+      activesupport (>= 3)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     sinatra (2.0.0)
@@ -91,11 +99,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   capybara
   pg
   pry
+  pry-byebug
   rake
+  rb-readline
   rspec
+  shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers (~> 2.0)
   sinatra
   sinatra-activerecord
