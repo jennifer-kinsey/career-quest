@@ -1,6 +1,6 @@
 development:
   adapter: postgresql
-  database: user_development
+  database: career_quest_development
 test:
   adapter: postgresql
-  database: user_test
+  database: career_quest_test
