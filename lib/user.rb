@@ -1,5 +1,7 @@
 class UserCredential < ActiveRecord::Base
-  belongs_to :user_detail
+ belongs_to :user_detail
+ validates :email, presence: true, uniqueness: true
+ validates :password, presence: true
 end
 
 class UserDetail < ActiveRecord::Base

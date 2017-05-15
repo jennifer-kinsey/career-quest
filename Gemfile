@@ -6,6 +6,8 @@ gem "sinatra-activerecord"
 gem "rake"
 gem "pg"
 gem "sinatra"
+gem "pry-byebug"
+gem "rb-readline"
 
 group :test do
   gem "rspec"
