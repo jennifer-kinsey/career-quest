@@ -2,8 +2,8 @@ http://ondras.zarovi.cz/sql/demo/?keyword=default
 browser password: lolz
 
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
-<!-- Active URL: http://ondras.zarovi.cz/sql/demo/?keyword=default -->
+SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/
+ Active URL: http://ondras.zarovi.cz/sql/demo/?keyword=default
 <sql>
 <datatypes db="mysql">
 <group color="rgb(238,238,170)" label="Numeric">
@@ -40,22 +40,25 @@ browser password: lolz
 <type label="SET" quote="" sql="SET" length="1"/>
 <type label="Bit" quote="" sql="bit" length="0"/>
 </group>
-</datatypes><table x="78" y="35" name="user credentials">
+</datatypes><table x="71" y="359" name="user credentials">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="user details" row="id" />
-</row>
+<default>NULL</default></row>
 <row name="email (login)" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="password" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="user_detail_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="user details" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="73" y="241" name="user details">
+<table x="418" y="315" name="user details">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -77,11 +80,18 @@ browser password: lolz
 <row name="*master cover letter/template" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="skills/tools" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="user_credential_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="user credentials" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="982" y="451" name="companies">
+<table x="1077" y="376" name="companies">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -109,22 +119,18 @@ browser password: lolz
 <row name="notes" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="contact_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="contact" row="id" />
-</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="624" y="211" name="correspondences">
+<table x="821" y="99" name="correspondences">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="contact status" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="type of contact" null="1" autoincrement="0">
+<row name="mode of contact" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="date of contact" null="1" autoincrement="0">
@@ -140,7 +146,7 @@ browser password: lolz
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="contact" row="id" />
 </row>
-<row name="user_id" null="1" autoincrement="0">
+<row name="user_detail_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="user details" row="id" />
 </row>
@@ -152,7 +158,7 @@ browser password: lolz
 <part>id</part>
 </key>
 </table>
-<table x="630" y="495" name="positions">
+<table x="835" y="470" name="positions">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -184,7 +190,7 @@ browser password: lolz
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="companies" row="id" />
 </row>
-<row name="user_id" null="1" autoincrement="0">
+<row name="user_detail_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="user details" row="id" />
 </row>
@@ -198,7 +204,7 @@ browser password: lolz
 <part>id</part>
 </key>
 </table>
-<table x="1029" y="228" name="contact">
+<table x="1306" y="149" name="contact">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -220,6 +226,10 @@ browser password: lolz
 <row name="notes" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="company_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="companies" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>

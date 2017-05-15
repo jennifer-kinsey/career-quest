@@ -1,14 +1,13 @@
 class UserCredential < ActiveRecord::Base
-  belongs_to :user_details
-
-  validates :email, presence: true, uniqueness: true
-  validates :password, presence: true
+ belongs_to :user_detail
+ validates :email, presence: true, uniqueness: true
+ validates :password, presence: true
 end
 
 class UserDetail < ActiveRecord::Base
-  belongs_to :user_credentials
-  belongs_to :positions
-  belongs_to :correspondences
-  has_many :contacts, through: :correspondences
-  has_many :companies, through: :positions
+  belongs_to :user_credential
+  belongs_to :position
+  belongs_to :correspondence
+  has_many :contacts, through: :correspondence
+  has_many :companies, through: :position
 end

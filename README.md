@@ -11,6 +11,9 @@ This is an application for finding a job!  Users can store and access data for a
 
 ### Prerequisites
 
+schema as of 1:30pm 5/15
+![schema](/public/img/schema.png)
+
 Web browser with ES6 compatibility
 Examples: Chrome, Safari
 
