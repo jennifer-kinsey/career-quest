@@ -1,0 +1,23 @@
+<h2>Step 1 of 2: Add a new position:</h2>
+
+
+<form action="/profile/<%= @user.id %>/add_new_position" method="post">
+
+<label for="job_title">Job Title </label>
+<input class="form-control" type="text" name="job_title" required><br>
+
+<label for="description">Description</label>
+<input class="form-control" type="text" name="description"><br>
+
+<label for="est_salary">Estimated Salary</label>
+<input class="form-control" type="text" name="est_salary"><br>
+
+<label for="url">Link to Job Posting</label>
+<input class="form-control" type="text" name="url"><br>
+
+<label for="notes">Notes</label>
+<input class="form-control" type="text" name="notes"><br>
+
+<button type="submit" class="btn btn-info">Proceed to Company Info</button>
+
+</form>

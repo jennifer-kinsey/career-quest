@@ -1,0 +1,54 @@
+<h2>Step 2 of 2:Add a company:</h2>
+
+<% if @companies != nil %>
+  <p>Choose from an existing company:</p>
+  <form action="/profile/<%= @user.id %>/add_existing_company" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <input type="hidden" name="position-id" value="<%= @new_position.id %>">
+    <label for="companies">companies</label>
+    <select class="form-control" name="company-id">
+      <% @companies.each do |company| %>
+        <option value="<%= company.id %>"><%= company.name %></option>
+      <% end %>
+    </select>
+    <br>
+    <button type="submit" class="btn btn-info" name="button">Add to Application</button>
+  </form>
+<% end %>
+
+
+<p>add a new company:</p>
+
+<form action="/profile/<%= @user.id %>/add_new_company" method="post">
+<input type="hidden" name="position-id" value="<%= @new_position.id %>">
+
+<label for="company_name">Company Name: </label>
+<input class="form-control" type="text" name="company_name" required><br>
+
+<label for="location">Location: </label>
+<input class="form-control" type="text" name="location"><br>
+
+<label for="website">Website: </label>
+<input class="form-control" type="text" name="website"><br>
+
+<label for="services">What they do:</label>
+<input class="form-control" type="text" name="services"><br>
+
+<label for="size">Company Size:</label>
+<input class="form-control" type="text" name="size"><br>
+
+<label for="specializations">Company specializations:</label>
+<input class="form-control" type="text" name="specializations"><br>
+
+<label for="pros">Pros:</label>
+<input class="form-control" type="text" name="pros"><br>
+
+<label for="cons">Cons:</label>
+<input class="form-control" type="text" name="cons"><br>
+
+<label for="notes">Additional notes</label>
+<input class="form-control" type="text" name="notes"><br>
+
+<button type="submit" class="btn btn-info">Add Application</button>
+
+</form>
