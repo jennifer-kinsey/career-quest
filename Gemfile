@@ -13,3 +13,5 @@ group :test do
   gem "pry"
   gem "shoulda-matchers", '~> 2.0'
 end
+
+gem "shoulda-matchers", '~> 2.0'

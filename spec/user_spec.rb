@@ -1,14 +1,29 @@
 require "spec_helper"
 
-# describe 'Palindrome#isWord?' do
-#   let(:word) { Palindrome.new }
+describe Company do
+  it { should have_many :user_details }
+end
 
-#   it "returns true if the word has at least one vowel" do
-#     expect(word.is_word?("word")).to eq true
-#   end
+describe Contact do
+  it { should have_many :user_details }
+end
 
-#   it "returns false if the word does not have a vowel" do
-#     expect(word.is_word?("wrd")).to eq false
-#   end
+describe Correspondence do
+  it { should belong_to :user_detail }
+  it { should belong_to :contact }
+end
 
-# end
+describe Position do
+  it { should belong_to :user_detail }
+  it { should belong_to :company }
+end
+
+describe UserCredential do
+  it { should belong_to :user_detail }
+end
+
+describe UserDetail do
+  it { should have_many :companies }
+  it { should have_many :contacts }
+  it { should belong_to :user_credential }
+end
