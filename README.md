@@ -1,6 +1,6 @@
 # Career Quest
 
-This is an application for finding a job!  Users can store and access data for all things job-related in their career quest.
+This is an application for organizing your job search!  Users can create unique accounts, and store and access data for all things job-related in their career quest. Visit the site here! heroku.com...
 
 ## Authors
 
@@ -9,10 +9,10 @@ This is an application for finding a job!  Users can store and access data for a
 * Jennifer Kinsey
 * Spencer Alan Ruiz
 
-### Prerequisites
-
 schema as of 1:30pm 5/15
 ![schema](/public/img/schema.png)
+
+### Prerequisites
 
 Web browser with ES6 compatibility
 Examples: Chrome, Safari
@@ -22,7 +22,46 @@ Bundler
 
 ### Installing
 
-Installation is quick and easy! First you can open this link <!--HEROKU LINK HERE--> to see the webpage in action live online. Or you can clone this repository to your machine, navigate to the file path in your terminal, and run 'app.rb' by typing '$ruby app.rb'. If you chose to clone the repository, after you run 'app.rb' you will need to copy the localhost path into your web browser. The standard localhost for Sinatra is port 4567
+Clone this repo by typing into the terminal:
+```
+$ git clone https://github.com/spenceralan/career_quest.git
+```
+
+In a new terminal window, start postgres in the background:
+```
+$ postgres
+```
+
+Navigate to this project directory in the terminal. Then type:
+```
+$ rake db:schema:load
+```
+
+In a new terminal tab, start the sinatra server by typing:
+```
+$ruby app.rb
+```
+Sinatra will now make this project available in your browser by going to localhost:4567.
+
+## Specifications
+
+| behavior |  input   |  output  |
+|----------|:--------:|:--------:|
+|add new new user profile with encrypted password| username: "grady" email: garysmith@epicodus.com password: ****** |new account created!|
+|add a new job posting you're interested in| Awesome Programming Gig | Success!|
+|add company for open positions| Awesome Programming Company | New Programming Company Added! |
+|Add contacts within these companies | Jane Doe- senior programmer at Awesome Company | success! |
+|Keep track of your correspondence with your contacts! | interview scheduled for next Tuesday| Your schedule has been updated! |
+|Update your application status! | Offer made!| Success! |
+
+## Screenshots
+
+**Store Page:**
+![Image ofScreenshot](public/img/.png)
+
+**Brand Page:**
+![Image ofScreenshot](public/img/.png)
+
 
 ## Built With
 
@@ -32,7 +71,7 @@ Installation is quick and easy! First you can open this link <!--HEROKU LINK HER
 * CSS
 * Bootstrap https://getbootstrap.com/
 * ES6
-* Jquery https://jquery.com/
+* Active-Record
 
 
 ## License
