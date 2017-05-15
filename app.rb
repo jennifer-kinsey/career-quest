@@ -7,5 +7,19 @@ get "/" do
 end
 
 get "/sessions/login" do
-  erb :login
+  erb :"/sessions/login"
+end
+
+get "/registrations/signup" do
+  erb :"/registrations/signup"
+end
+
+post "/registrations" do
+  @user = UserCredential.create({email: params["user-email"], password: params["user-password"]})
+  if @user.errors.any?
+    erb :"/registrations/error"
+  else
+    sessions[:user] = @user.id
+    redirect "/users/home"
+  end
 end
