@@ -13,7 +13,13 @@
       <input class="form-control" type="text" name="contact-linkedin">
       <label for="contact-notes">Notes</label>
       <textarea class="form-control" name="contact-notes" rows="5"></textarea>
-      <!-- you need companies here -->
+      <label for="company">Company:</label>
+      <select name="company-id" class="form-control">
+        <option> </option>
+        <% @companies.each do |company| %>
+          <option value="<%= company.id %>"><%= company.name%></option>
+        <% end %>
+      </select>
       <br>
       <button type="submit" class="btn btn-info">Add Contact</button>
     </form>
