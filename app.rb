@@ -293,6 +293,6 @@ end
 
 delete "/contacts/delete/:id" do
   contact = Contact.find(params["id"])
-  contact.destroy
+  contact.delete
   redirect "/contacts"
 end
