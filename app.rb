@@ -153,7 +153,7 @@ post "/users/new_company_companies_page" do
     user_detail_id: current_user.id,
   })
  # we want to push
-  @user.user_detail.companies.push(@new_company)
+  @user.companies.push(@new_company)
   if @new_company.save
     redirect "/users/companies"
   else
@@ -167,6 +167,7 @@ get "/contacts" do
 end
 
 get "/contacts/add" do
+  @companies = current_user.companies
   erb :"contacts/add_contact"
 end
 
@@ -179,5 +180,18 @@ post "/contacts" do
     linkedin: params["contact-linkedin"],
     notes: params["contact-notes"],
     user_detail_id: current_user.id,
+    company_id: params["company-id"]
   })
+  redirect "/contacts"
+end
+
+get "/contact/:id" do
+  @contact = Contact.find(params["id"])
+  erb :"/contacts/contact"
+end
+
+get "/contacts/edit/:id" do
+  @contact = Contact.find(params["id"])
+  @companies = current_user.companies
+  redirect :"/contact/edit_contact"
 end

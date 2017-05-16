@@ -1,0 +1,35 @@
+<%= "<h2>Edit #{@contact.name}</h2>"%>
+
+<div class="row">
+  <div class="col-md-8">
+    <form class="form-group" action="/contacts" method="post">
+      <label for="contact-name">Name*</label>
+      <input class="form-control" type="text" name="contact-name" value="<%=@contact.name %>" required>
+      <label for="contact-title">Title</label>
+      <input class="form-control" type="text" name="contact-title" value="<%=@contact.job_title %>">
+      <label for="contact-phone">Phone</label>
+      <input class="form-control" type="text" name="contact-phone" value="<%=@contact.phone %>">
+      <label for="contact-email">Email</label>
+      <input class="form-control" type="text" name="contact-email" value="<%=@contact.email %>">
+      <label for="contact-linkedin">LinkedIn Profile</label>
+      <input class="form-control" type="text" name="contact-linkedin" value="<%=@contact.linkedin %>">
+      <label for="contact-notes">Notes</label>
+      <textarea class="form-control" name="contact-notes" rows="5" ><%=@contact.name %></textarea>
+      <label for="company">Company:</label>
+      <select name="company-id" class="form-control">
+        <% if @contact.company %>
+          <% @companies.each do |company| %>
+            <%= @contact.company.name == company.name ? "<option value='#{company.id}' selected>#{company.name}</option>" : "<option value='#{company.id}'>#{company.name}</option>" %>
+          <% end %>
+        <% else %>
+          <% @companies.each do |company| %>
+            <%= "<option value='#{company.id}'>#{company.name}</option>"%>
+          <% end %>
+        <% end %>
+      </select>
+      <br>
+      <button type="submit" class="btn btn-info">Edit Contact</button>
+    </form>
+  </div>
+
+</div>
