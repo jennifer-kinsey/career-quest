@@ -76,13 +76,15 @@ end
 
 post '/users/add_new_position' do
   @user = current_user
-  @new_position = Position.create({title: params['job_title'],
-                                   application_status: "incomplete",
-                                   description: params['description'],
-                                   est_salary: params['est_salary'],
-                                   url: params['url'],
-                                   notes: params['notes'],
-                                   user_detail_id: @user.id})
+  @new_position = Position.create({
+    title: params['job_title'],
+    application_status: "incomplete",
+    description: params['description'],
+    est_salary: params['est_salary'],
+    url: params['url'],
+    notes: params['notes'],
+    user_detail_id: @user.id,
+  })
   @companies = Company.all
   if @new_position.save
     erb :add_new_company
@@ -113,15 +115,17 @@ end
 
 post '/users/add_new_company' do
   @user = current_user
-  @new_company = Company.create({name: params['company_name'],
-                                 location: params['location'],
-                                 website: params['website'],
-                                 services: params['services'],
-                                 size: params['size'],
-                                 specializations: params['specializations'],
-                                 pros: params['pros'],
-                                 cons: params['cons'],
-                                 notes: params['notes']})
+  @new_company = Company.create({
+    name: params['company_name'],
+    location: params['location'],
+    website: params['website'],
+    services: params['services'],
+    size: params['size'],
+    specializations: params['specializations'],
+    pros: params['pros'],
+    cons: params['cons'],
+    notes: params['notes'],
+  })
   position = Position.find(params['position-id'])
   position.update({company_id: @new_company.id })
   if @new_company.save
