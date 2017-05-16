@@ -29,6 +29,7 @@ end
 
 get "/users/home" do
   @user = current_user
+  @companies = Company.all
   erb :"/users/home"
 end
 
@@ -62,19 +63,19 @@ post "/sessions" do
 end
 
 
-get '/profile/:id' do
-  @user = UserDetail.find(params['id'])
-  @companies = Company.all
-  erb :profile_home
-end
+# get '/profile/:id' do
+#   @user = UserDetail.find(params['id'])
+#   @companies = Company.all
+#   erb :profile_home
+# end
 
-get "/profile/:id/new_position" do
-  @user = UserDetail.find(params['id'])
+get "/users/new_position" do
+  @user = current_user
   erb :add_new_position
 end
 
-post '/profile/:id/add_new_position' do
-  @user = UserDetail.find(params['id'])
+post '/users/add_new_position' do
+  @user = current_user
   @new_position = Position.create({title: params['job_title'],
                                    application_status: "incomplete",
                                    description: params['description'],
@@ -82,6 +83,7 @@ post '/profile/:id/add_new_position' do
                                    url: params['url'],
                                    notes: params['notes'],
                                    user_detail_id: @user.id})
+  @companies = Company.all
   if @new_position.save
     erb :add_new_company
   else
@@ -89,27 +91,28 @@ post '/profile/:id/add_new_position' do
   end
 end
 
-get '/profile/:id/add_company' do
-  @user = UserDetail.find(params['id'])
+get '/users/add_company' do
+  @user = current_user
   @new_position = Position.find(params['id'])
   @companies = Company.all
+  binding.pry
   erb :add_new_company
 end
 
-patch '/profile/:id/add_existing_company' do
-  @user = UserDetail.find(params['id'])
+patch '/users/add_existing_company' do
+  @user = current_user
   company = Company.find(params['company-id'])
   position = Position.find(params['position-id'])
   position.update({company_id: company.id})
   if position.update({company_id: company.id})
-    redirect "/profile/#{@user.id}"
+    redirect "/users/home"
   else
     erb :error
   end
 end
 
-post '/profile/:id/add_new_company' do
-  @user = UserDetail.find(params['id'])
+post '/users/add_new_company' do
+  @user = current_user
   @new_company = Company.create({name: params['company_name'],
                                  location: params['location'],
                                  website: params['website'],
@@ -122,7 +125,7 @@ post '/profile/:id/add_new_company' do
   position = Position.find(params['position-id'])
   position.update({company_id: @new_company.id })
   if @new_company.save
-    redirect "/profile/#{@user.id}"
+    redirect "/users/home"
   else
     erb :error
   end
