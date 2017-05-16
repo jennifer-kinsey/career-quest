@@ -1,13 +1,13 @@
 <h2>Step 2 of 2: Add a company: </h2>
 
-<% if @user.user_detail.companies != nil %>
+<% if @user.companies != nil %>
   <p>Choose a company or add a new company below: </p>
   <form action="/users/add_existing_company" method="post">
     <input type="hidden" name="_method" value="patch">
     <input type="hidden" name="position-id" value="<%= @new_position.id %>">
     <label for="companies">Companies: </label>
     <select class="form-control" name="company-id">
-      <% @user.user_detail.companies.each do |company| %>
+      <% @user.companies.each do |company| %>
         <option value="<%= company.id %>"><%= company.name %></option>
       <% end %>
     </select>

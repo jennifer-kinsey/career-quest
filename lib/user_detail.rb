@@ -1,7 +1,8 @@
 class UserDetail < ActiveRecord::Base
   belongs_to :user_credential
-  belongs_to :position
-  belongs_to :correspondence
-  has_many :contacts, through: :correspondence
-  has_many :companies, through: :position
+
+  has_many :positions
+  has_many :correspondences
+  has_many :contacts
+  has_many :companies
 end

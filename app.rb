@@ -10,7 +10,7 @@ helpers do
   end
 
   def current_user
-    UserCredential.find_by(id: session[:user])
+    UserDetail.find_by(user_credential_id: session[:user])
   end
 end
 
@@ -44,7 +44,7 @@ post "/registrations" do
     password_confirmation: params["user-password-confirmation"],
     name: params["user-name"]
   })
-  userdeets = UserDetail.create({user_credential_id: @user.id})
+  userdeets = UserDetail.create({user_credential_id: @user.id, name: params["user-name"]})
   @user.update({user_detail_id: userdeets.id})
   if @user.errors.any?
     erb :error
@@ -101,7 +101,7 @@ patch '/users/add_existing_company' do
   position.update({company_id: company.id})
 
   # we want to push
-  @user.user_detail.companies.push(company)
+  @user.companies.push(company)
   if position.update({company_id: company.id})
     redirect "/users/home"
   else
@@ -121,8 +121,9 @@ post '/users/add_new_company' do
     pros: params['pros'],
     cons: params['cons'],
     notes: params['notes'],
+    user_detail_id: current_user.id,
   })
-  @user.user_detail.companies.push(@new_company)
+  @user.companies.push(@new_company)
   position = Position.find(params['position-id'])
   position.update({company_id: @new_company.id })
   if @new_company.save
@@ -134,23 +135,23 @@ end
 
 get '/users/companies' do
   @user = current_user
-  # binding.pry
   erb :"/companies/companies"
 end
 
 post "/users/new_company_companies_page" do
   @user = current_user
   @new_company = Company.create({
-     name: params['company_name'],
-     location: params['location'],
-     website: params['website'],
-     services: params['services'],
-     size: params['size'],
-     specializations: params['specializations'],
-     pros: params['pros'],
-     cons: params['cons'],
-     notes: params['notes']
-    })
+    name: params['company_name'],
+    location: params['location'],
+    website: params['website'],
+    services: params['services'],
+    size: params['size'],
+    specializations: params['specializations'],
+    pros: params['pros'],
+    cons: params['cons'],
+    notes: params['notes'],
+    user_detail_id: current_user.id,
+  })
  # we want to push
   @user.user_detail.companies.push(@new_company)
   if @new_company.save
@@ -158,6 +159,7 @@ post "/users/new_company_companies_page" do
   else
     erb :error
   end
+end
 
 get "/contacts" do
   @contacts = Contact.all
@@ -178,5 +180,4 @@ post "/contacts" do
     notes: params["contact-notes"],
     user_detail_id: current_user.id,
   })
-
 end
