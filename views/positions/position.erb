@@ -1,0 +1,20 @@
+<h3><%= @position.title %></h3>
+<br>
+
+<h4>Company: <%= @position.company.name %></h4>
+<p>Application Status: <%= @position.application_status %></p>
+<p>Description: <%= @position.description %></p>
+<p>Offer: <%= @position.offer %></p>
+<p>Schedule: <%= @position.schedule %></p>
+<p>URL: <%= @position.url %></p>
+<p>Estimated Salary: <%= @position.est_salary %></p>
+<p>Notes: <%= @position.notes %></p>
+<p>Resume: <%= @position.resume %></p>
+<p>Cover Letter: <%= @position.cover_letter %></p>
+
+<a class="btn btn-default" href="/position/<%= @position.id %>/edit">Update Position Info</a><br><br>
+
+<form action="/position/<%= @position.id %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger">Delete This Position</button>
+</form>
