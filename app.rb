@@ -166,6 +166,7 @@ end
 
 get '/company/:id' do
   @company = Company.find(params['id'])
+  @positions = @company.positions
   erb :"/companies/company"
 end
 
@@ -231,7 +232,11 @@ patch '/position/:id/edit' do
   redirect "/position/#{@position.id}"
 end
 
-
+delete '/position/:id/delete' do
+  position = Position.find(params['id'])
+  position.destroy
+  redirect "/users/positions"
+end
 
 
 

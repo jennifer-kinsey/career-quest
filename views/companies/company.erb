@@ -9,6 +9,12 @@
 <p>Cons: <%= @company.cons %></p>
 <p>Notes: <%= @company.notes %></p>
 
+<hr>
+<p>Positions at this company:</p>
+<% @positions.each do |position| %>
+  <p><a href="/position/<%=position.id%>"><%= position.title %></a></p>
+<% end %>
+
 <a class="btn btn-default" href="/company/<%= @company.id %>/edit">Edit Company Info</a><br><br>
 
 <form action="/company/<%= @company.id %>/delete" method="post">
