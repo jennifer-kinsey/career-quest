@@ -1,5 +1,13 @@
-<h2>Welcome, <%= @user.email %>!</h2>
+<h2>Welcome, <%= @user.name %></h2>
 
 <p>
-  <a href="/users/new_position">add new position</a>
+  <a href="/profile/<%= @user.id %>/new_position">add new position</a>
 </p>
+
+<div class="row">
+
+  <div class="col-md-3">
+
+  </div>
+
+</div>
