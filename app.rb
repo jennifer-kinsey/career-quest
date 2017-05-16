@@ -66,7 +66,7 @@ end
 
 get "/users/new_position" do
   @user = current_user
-  erb :add_new_position
+  erb :"/positions/add_new_position"
 end
 
 post '/users/add_new_position' do
@@ -82,7 +82,7 @@ post '/users/add_new_position' do
   })
   @companies = Company.all
   if @new_position.save
-    erb :add_new_company
+    erb :"/companies/add_new_company"
   else
     erb :error
   end
@@ -91,7 +91,7 @@ end
 get '/users/add_company' do
   @user = current_user
   @new_position = Position.find(params['id'])
-  erb :add_new_company
+  erb :"/companies/add_new_company"
 end
 
 patch '/users/add_existing_company' do
@@ -101,7 +101,8 @@ patch '/users/add_existing_company' do
   position.update({company_id: company.id})
 
   # we want to push
-  @user.companies.push(company)
+  company.positions.push(position)
+  # @user.companies.push(company)
   if position.update({company_id: company.id})
     redirect "/users/home"
   else
@@ -126,6 +127,7 @@ post '/users/add_new_company' do
   @user.companies.push(@new_company)
   position = Position.find(params['position-id'])
   position.update({company_id: @new_company.id })
+  @new_company.positions.push(position)
   if @new_company.save
     redirect "/users/home"
   else
@@ -193,11 +195,15 @@ end
 
 delete '/company/:id/delete' do
   company = Company.find(params['id'])
-  company.delete
+  company.destroy
   redirect '/users/companies'
 end
 
-
+get '/users/positions' do
+  @user = current_user
+  @positions = @user.positions
+  erb :"positions/positions"
+end
 
 
 

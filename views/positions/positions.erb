@@ -1,0 +1,31 @@
+<h2>Your Positions</h2>
+
+<% if @positions.any? %>
+  <table class="table">
+    <thead>
+     <tr>
+       <th>Title</th>
+       <th>Company</th>
+       <th>Application Status</th>
+     </tr>
+    </thead>
+    <tbody>
+     <% @positions.each do |position| %>
+       <tr>
+          <td><a href="/position/<%= position.id %>"><%= position.title %></a></td>
+          <% if position.company %>
+            <td><%= position.company.name %></td>
+          <% end%>
+          <td><%= position.application_status %></td>
+       </tr>
+
+     <% end %>
+    </tbody>
+    </table>
+<% else %>
+  <p>
+    There are no positions yet!
+  </p>
+<% end %>
+
+<a href="/users/new_position">Add a Position</a>
