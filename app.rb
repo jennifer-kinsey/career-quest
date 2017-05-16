@@ -76,12 +76,13 @@ end
 
 post '/profile/:id/add_new_position' do
   @user = UserDetail.find(params['id'])
-  job_title = params.fetch('job_title')
-  description = params.fetch('description')
-  est_salary = params.fetch('est_salary')
-  url = params.fetch('url')
-  notes = params.fetch('notes')
-  @new_position = Position.create({title: job_title, application_status: "incomplete",  description: description, offer: nil, schedule: nil, est_salary: est_salary, url: url, notes: notes, company_id: nil, user_detail_id: @user.id, resume: nil, cover_letter: nil})
+  @new_position = Position.create({title: params['job_title'],
+                                   application_status: "incomplete",
+                                   description: params['description'],
+                                   est_salary: params['est_salary'],
+                                   url: params['url'],
+                                   notes: params['notes'],
+                                   user_detail_id: @user.id})
   if @new_position.save
     erb :add_new_company
   else
@@ -110,16 +111,15 @@ end
 
 post '/profile/:id/add_new_company' do
   @user = UserDetail.find(params['id'])
-  name = params.fetch('company_name')
-  location = params.fetch('location')
-  website = params['website']
-  services = params['services']
-  size = params['size']
-  specializations = params['specializations']
-  pros = params.fetch('pros')
-  cons = params.fetch('cons')
-  notes = params.fetch('notes')
-  @new_company = Company.create({name: name, location: location, website: website, services: services, size: size, specializations: specializations, pros: pros, cons: cons, notes: notes})
+  @new_company = Company.create({name: params['company_name'],
+                                 location: params['location'],
+                                 website: params['website'],
+                                 services: params['services'],
+                                 size: params['size'],
+                                 specializations: params['specializations'],
+                                 pros: params['pros'],
+                                 cons: params['cons'],
+                                 notes: params['notes']})
   position = Position.find(params['position-id'])
   position.update({company_id: @new_company.id })
   if @new_company.save
