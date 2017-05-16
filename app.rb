@@ -191,6 +191,12 @@ patch '/company/:id/edit' do
   redirect "/company/#{@company.id}"
 end
 
+delete '/company/:id/delete' do
+  company = Company.find(params['id'])
+  company.delete
+  redirect '/users/companies'
+end
+
 
 
 
