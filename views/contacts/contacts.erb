@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-sm-4 contacts">
+    <h2>Contacts</h2>
+    <% if @contacts.any? %>
+      <% @contacts.each do |contact| %>
+        <%= "<h4><a href='contact/#{contact.id}'>#{contact.name}, #{contact.company}</a></h4>" %>
+      <% end %>
+    <% else %>
+      <h4>Leave your mother's basement and meet people. Then add them here!</h4>
+    <% end %>
+    <a href="/contacts/add" class="btn btn-info">Add Contact</a>
+  </div>
+
+  <div class="col-sm-8 recent">
+    <h2>Recent Correspondence</h2>
+    <% if @contacts.any? %>
+      <% @contacts.each do |contact| %>
+        <%= "<h4><a href='contact/#{contact.id}'>#{contact.name}, #{contact.company}</a></h4>" %>
+      <% end %>
+    <% else %>
+      <h4>This is where you would keep your correspondence if you talked to anyone. Ever.</h4>
+    <% end %>
+  </div>
+</div>
