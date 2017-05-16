@@ -134,3 +134,25 @@ post '/users/add_new_company' do
     erb :error
   end
 end
+
+get "/contacts" do
+  @contacts = Contact.all
+  erb :"contacts/contacts"
+end
+
+get "/contacts/add" do
+  erb :"contacts/add_contact"
+end
+
+post "/contacts" do
+  Contact.create({
+    name: params["contact-name"],
+    job_title: params["contact-title"],
+    phone: params["contact-phone"],
+    email: params["contact-email"],
+    linkedin: params["contact-linkedin"],
+    notes: params["contact-notes"],
+    user_detail_id: current_user.id,
+  })
+
+end
