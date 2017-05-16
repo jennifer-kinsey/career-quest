@@ -166,7 +166,6 @@ end
 
 get '/company/:id' do
   @company = Company.find(params['id'])
-  binding
   erb :"/companies/company"
 end
 
@@ -203,6 +202,33 @@ get '/users/positions' do
   @user = current_user
   @positions = @user.positions
   erb :"positions/positions"
+end
+
+get '/position/:id' do
+  @position = Position.find(params['id'])
+  erb :"/positions/position"
+end
+
+get '/position/:id/edit' do
+  @position = Position.find(params['id'])
+  erb :"/positions/position_edit"
+end
+
+patch '/position/:id/edit' do
+  @position = Position.find(params['id'])
+  @position.update({
+    title: params['job_title'],
+    application_status: "application_status",
+    description: params['description'],
+    offer: params['offer'],
+    schedule: params['schedule'],
+    url: params['url'],
+    est_salary: params['est_salary'],
+    notes: params['notes'],
+    resume: params['resume'],
+    cover_letter: params['cover_letter']
+  })
+  redirect "/position/#{@position.id}"
 end
 
 
