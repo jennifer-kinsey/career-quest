@@ -15,7 +15,6 @@ helpers do
 end
 
 get "/" do
-  @user = UserDetail.create({name: "Grady"})
   erb :index
 end
 
@@ -41,6 +40,7 @@ post "/registrations" do
   @user = UserCredential.create({
     email: params["user-email"],
     password: params["user-password"],
+    password_confirmation: params["user-password-confirmation"],
     name: params["user-name"],
   })
   if @user.errors.any?
@@ -56,7 +56,6 @@ post "/sessions" do
   if @user
     session[:user] = @user.id
     redirect "/users/home"
-
   else
     erb :error
   end
