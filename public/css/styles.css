@@ -1,0 +1,7 @@
+body {
+    padding-top: 65px;
+}
+
+.nav>li>a {
+  margin: 10px 0;
+}

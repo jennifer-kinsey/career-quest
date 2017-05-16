@@ -71,14 +71,16 @@ end
 
 post '/users/add_new_position' do
   @user = current_user
-  @new_position = Position.create({title: params['job_title'],
-                                   application_status: "incomplete",
-                                   description: params['description'],
-                                   est_salary: params['est_salary'],
-                                   url: params['url'],
-                                   notes: params['notes'],
-                                   user_detail_id: @user.user_detail.id})
-
+  @new_position = Position.create({
+    title: params['job_title'],
+    application_status: "incomplete",
+    description: params['description'],
+    est_salary: params['est_salary'],
+    url: params['url'],
+    notes: params['notes'],
+    user_detail_id: @user.id,
+  })
+  @companies = Company.all
   if @new_position.save
     erb :add_new_company
   else
@@ -109,18 +111,18 @@ end
 
 post '/users/add_new_company' do
   @user = current_user
-  @new_company = Company.create({name: params['company_name'],
-                                 location: params['location'],
-                                 website: params['website'],
-                                 services: params['services'],
-                                 size: params['size'],
-                                 specializations: params['specializations'],
-                                 pros: params['pros'],
-                                 cons: params['cons'],
-                                 notes: params['notes']})
-
- # we want to push
- @user.user_detail.companies.push(@new_company)
+  @new_company = Company.create({
+    name: params['company_name'],
+    location: params['location'],
+    website: params['website'],
+    services: params['services'],
+    size: params['size'],
+    specializations: params['specializations'],
+    pros: params['pros'],
+    cons: params['cons'],
+    notes: params['notes'],
+  })
+  @user.user_detail.companies.push(@new_company)
   position = Position.find(params['position-id'])
   position.update({company_id: @new_company.id })
   if @new_company.save
@@ -138,15 +140,17 @@ end
 
 post "/users/new_company_companies_page" do
   @user = current_user
-  @new_company = Company.create({name: params['company_name'],
-                                 location: params['location'],
-                                 website: params['website'],
-                                 services: params['services'],
-                                 size: params['size'],
-                                 specializations: params['specializations'],
-                                 pros: params['pros'],
-                                 cons: params['cons'],
-                                 notes: params['notes']})
+  @new_company = Company.create({
+     name: params['company_name'],
+     location: params['location'],
+     website: params['website'],
+     services: params['services'],
+     size: params['size'],
+     specializations: params['specializations'],
+     pros: params['pros'],
+     cons: params['cons'],
+     notes: params['notes']
+    })
  # we want to push
   @user.user_detail.companies.push(@new_company)
   if @new_company.save
@@ -154,4 +158,25 @@ post "/users/new_company_companies_page" do
   else
     erb :error
   end
+
+get "/contacts" do
+  @contacts = Contact.all
+  erb :"contacts/contacts"
+end
+
+get "/contacts/add" do
+  erb :"contacts/add_contact"
+end
+
+post "/contacts" do
+  Contact.create({
+    name: params["contact-name"],
+    job_title: params["contact-title"],
+    phone: params["contact-phone"],
+    email: params["contact-email"],
+    linkedin: params["contact-linkedin"],
+    notes: params["contact-notes"],
+    user_detail_id: current_user.id,
+  })
+
 end
