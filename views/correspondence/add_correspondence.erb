@@ -1,0 +1,25 @@
+<h2>Add Correspondence</h2>
+
+<form class="form-group" action="/contacts" method="post">
+  <label for="contact-name">Name*</label>
+  <input class="form-control" type="text" name="contact-name" required>
+  <label for="contact-title">Title</label>
+  <input class="form-control" type="text" name="contact-title">
+  <label for="contact-phone">Phone</label>
+  <input class="form-control" type="text" name="contact-phone">
+  <label for="contact-email">Email</label>
+  <input class="form-control" type="text" name="contact-email">
+  <label for="contact-linkedin">LinkedIn Profile</label>
+  <input class="form-control" type="text" name="contact-linkedin">
+  <label for="contact-notes">Notes</label>
+  <textarea class="form-control" name="contact-notes" rows="5"></textarea>
+  <label for="company">Company:</label>
+  <select name="company-id" class="form-control">
+    <option> </option>
+    <% @companies.each do |company| %>
+      <option value="<%= company.id %>"><%= company.name%></option>
+    <% end %>
+  </select>
+  <br>
+  <button type="submit" class="btn btn-info">Add Contact</button>
+</form>
