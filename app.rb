@@ -15,7 +15,6 @@ helpers do
 end
 
 get "/" do
-  @user = UserDetail.create({name: "Grady"})
   erb :index
 end
 
@@ -41,6 +40,7 @@ post "/registrations" do
   @user = UserCredential.create({
     email: params["user-email"],
     password: params["user-password"],
+    password_confirmation: params["user-password-confirmation"],
     name: params["user-name"],
   })
   if @user.errors.any?
@@ -56,7 +56,6 @@ post "/sessions" do
   if @user
     session[:user] = @user.id
     redirect "/users/home"
-
   else
     erb :error
   end
@@ -81,7 +80,9 @@ post '/profile/:id/add_new_position' do
   est_salary = params.fetch('est_salary')
   url = params.fetch('url')
   notes = params.fetch('notes')
-  @new_position = Position.create({title: job_title, application_status: "incomplete",  description: description, offer: nil, schedule: nil, est_salary: est_salary, url: url, notes: notes, company_id: nil, user_detail_id: @user.id, resume: nil, cover_letter: nil})
+  @new_position = Position.create({
+    title: job_title,
+    application_status: "incomplete",  description: description, offer: nil, schedule: nil, est_salary: est_salary, url: url, notes: notes, company_id: nil, user_detail_id: @user.id, resume: nil, cover_letter: nil})
   if @new_position.save
     erb :add_new_company
   else
