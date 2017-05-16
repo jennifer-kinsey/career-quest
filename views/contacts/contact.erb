@@ -1,13 +1,9 @@
 <h2><%= @contact.name %></h2>
-<h3>  </h3><h4>Contact Info:</h4>
-<h5>Phone: </h5><h5>Email: </h5><h5>LinkedIn: </h5><h5>Notes</h5>
-<p> </p>
-<!-- COrrespondence goes here, IF it exists -->
-<h5></h5>
-<a href="/contacts/edit/b6bee7b1-ffa4-4fc5-8fbd-3418d2118c50" class='btn btn-default'>Edit Contact</a>
-
-<form action="/contacts/delete/b6bee7b1-ffa4-4fc5-8fbd-3418d2118c50" method="post">
-  <button type="submit" name="button" class='btn btn-danger'>Delete Contact</button>
-</form>
-
-    </div>
+<h3><%= @contact.company ? "#{@contact.job_title} at #{@contact.company}" : "#{@contact.job_title}" %></h3>
+<h4>Contact Info:</h4>
+<h5>Phone: <%= @contact.phone %></h5>
+<h5>Email: <%= @contact.email %></h5>
+<h5>LinkedIn: <%= @contact.linkedin %></h5>
+<h5>Notes</h5>
+<p><%= @contact.notes %></p>
+<a href="/contacts/edit/<%= @contact.id%>" class='btn btn-default'>Edit Contact</a>

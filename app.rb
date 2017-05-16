@@ -193,5 +193,26 @@ end
 get "/contacts/edit/:id" do
   @contact = Contact.find(params["id"])
   @companies = current_user.companies
-  redirect :"/contact/edit_contact"
+  erb :"/contacts/edit_contact"
+end
+
+patch "/contacts" do
+  contact = Contact.find(params["contact-id"])
+  contact.update({
+    name: params["contact-name"],
+    job_title: params["contact-title"],
+    phone: params["contact-phone"],
+    email: params["contact-email"],
+    linkedin: params["contact-linkedin"],
+    notes: params["contact-notes"],
+    user_detail_id: current_user.id,
+    company_id: params["company-id"]
+  })
+  redirect "/contacts"
+end
+
+delete "/contacts/delete/:id" do
+  contact = Contact.find(params["id"])
+  contact.destroy
+  redirect "/contacts"
 end

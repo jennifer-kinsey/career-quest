@@ -3,6 +3,8 @@
 <div class="row">
   <div class="col-md-8">
     <form class="form-group" action="/contacts" method="post">
+      <input name="_method" value="patch" type="hidden">
+      <input type="hidden" name="contact-id" value="<%= @contact.id %>">
       <label for="contact-name">Name*</label>
       <input class="form-control" type="text" name="contact-name" value="<%=@contact.name %>" required>
       <label for="contact-title">Title</label>
@@ -29,6 +31,10 @@
       </select>
       <br>
       <button type="submit" class="btn btn-info">Edit Contact</button>
+    </form>
+    <form action="/contacts/delete/<%= @contact.id%>" method="post">
+      <input name="_method" value="delete" type="hidden">
+      <button type="submit" name="button" class='btn btn-danger'>Delete Contact</button>
     </form>
   </div>
 
