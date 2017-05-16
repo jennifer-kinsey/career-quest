@@ -135,6 +135,7 @@ end
 
 get '/users/companies' do
   @user = current_user
+  @companies = @user.companies
   erb :"/companies/companies"
 end
 
@@ -153,13 +154,49 @@ post "/users/new_company_companies_page" do
     user_detail_id: current_user.id,
   })
  # we want to push
-  @user.user_detail.companies.push(@new_company)
+  @user.companies.push(@new_company)
   if @new_company.save
     redirect "/users/companies"
   else
     erb :error
   end
 end
+
+get '/company/:id' do
+  @company = Company.find(params['id'])
+  binding
+  erb :"/companies/company"
+end
+
+get '/company/:id/edit' do
+  @company = Company.find(params['id'])
+  erb :"/companies/company_edit"
+end
+
+patch '/company/:id/edit' do
+  @company = Company.find(params['id'])
+  @company.update({
+    name: params['company_name'],
+    location: params['location'],
+    website: params['website'],
+    services: params['services'],
+    size: params['size'],
+    specializations: params['specializations'],
+    pros: params['pros'],
+    cons: params['cons'],
+    notes: params['notes'],
+    user_detail_id: current_user.id,
+  })
+  # binding.pry
+  redirect "/company/#{@company.id}"
+end
+
+
+
+
+
+
+
 
 get "/contacts" do
   @contacts = Contact.all

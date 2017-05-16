@@ -1,6 +1,6 @@
 <h2>Your Companies</h2>
 
-<% if @user.companies.any? %>
+<% if @companies.any? %>
   <table class="table">
      <thead>
        <tr>
@@ -9,7 +9,7 @@
        </tr>
      </thead>
      <tbody>
-       <% @user.companies.each do |company| %>
+       <% @companies.each do |company| %>
 
          <tr>
            <td><a href="/company/<%= company.id %>"><%= company.name %></a></td>

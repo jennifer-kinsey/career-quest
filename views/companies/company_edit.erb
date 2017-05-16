@@ -1,0 +1,35 @@
+<h3>Edit details for <%= @company.name %></h3>
+
+<form action="/company/<%= @company.id %>/edit" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <label for="company_name">Company Name: </label>
+  <input class="form-control" type="text" name="company_name" value="<%= @company.name %>"><br>
+
+  <label for="location">Location: </label>
+  <input class="form-control" type="text" name="location" value="<%= @company.location %>"><br>
+
+  <label for="website">Website: </label>
+  <input class="form-control" type="text" name="website" value="<%= @company.website %>"><br>
+
+  <label for="services">What they do:</label>
+  <input class="form-control" type="text" name="services" value="<%= @company.services %>"><br>
+
+  <label for="size">Company Size:</label>
+  <input class="form-control" type="text" name="size" value="<%= @company.size %>"><br>
+
+  <label for="specializations">Company specializations:</label>
+  <input class="form-control" type="text" name="specializations" value="<%= @company.specializations %>"><br>
+
+  <label for="pros">Pros:</label>
+  <input class="form-control" type="text" name="pros" value="<%= @company.pros %>"><br>
+
+  <label for="cons">Cons:</label>
+  <input class="form-control" type="text" name="cons" value="<%= @company.cons %>"><br>
+
+  <label for="notes">Additional notes</label>
+  <input class="form-control" type="text" name="notes" value="<%= @company.notes %>"><br>
+
+  <button type="submit" class="btn btn-info">Update Company Information</button>
+
+</form>
