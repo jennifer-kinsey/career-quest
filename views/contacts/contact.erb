@@ -17,21 +17,11 @@
       <% @contact.correspondences.each do |correspondence| %>
         <div class="well">
           <h4>Action: <%= correspondence.action %></h4>
-          <% if correspondence.company.name %>
-            <%="<h5>Company: #{correspondence.company.name}</h5> "%>
-          <% end %>
-          <% if correspondence.mode %>
-            <%="<h5>Communication Method: #{correspondence.mode}</h5> "%>
-          <% end %>
-          <% if correspondence.result %>
-            <%="<h5>Communication Method: #{correspondence.result}</h5> "%>
-          <% end %>
-          <% if correspondence.notes %>
-            <%="<h5>Notes: #{correspondence.notes}</h5> "%>
-          <% end %>
-          <% if correspondence.date %>
-            <%="<h5>Date: #{correspondence.date}</h5> "%>
-          <% end %>
+          <h4> <%= correspondence.company ?  "Company: #{correspondence.company.name}" : nil %></h4>
+          <h4> <%= correspondence.position ?  "Regarding Position: #{correspondence.position.title}" : nil %></h4>
+          <p>Mode: <%= correspondence.mode %></p>
+          <p>Date: <%= correspondence.date %></p>
+          <p>Notes: <%= correspondence.notes %></p>
         </div>
       <% end %>
     <% else %>

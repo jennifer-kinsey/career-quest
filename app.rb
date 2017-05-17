@@ -348,6 +348,32 @@ get '/correspondence/:id' do
   erb :"correspondences/correspondence"
 end
 
+get '/correspondence/:id/edit' do
+  @companies = current_user.companies
+  @positions = current_user.positions
+  @contacts = current_user.contacts
+  @correspondence = Correspondence.find(params['id'])
+  erb :"correspondences/correspondence_edit"
+end
+
+patch '/correspondence/:id/edit' do
+  Correspondence.find(params['id']).update({
+    action: params['action'],
+    mode: params['mode'],
+    date: params['date'],
+    notes: params['notes'],
+    contact_id: params['contact-id'],
+    position_id: params['position-id'],
+    company_id: params['company-id']
+    })
+  redirect "correspondence/#{params['id']}"
+end
+
+delete '/correspondence/:id/delete' do
+  Correspondence.find(params['id']).delete
+  redirect '/users/correspondences'
+end
+
 # Settings Routes
 get "/users/settings" do
   @user = current_user

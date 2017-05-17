@@ -1,21 +1,42 @@
-<h3><%= @position.title %></h3>
-<br>
+<div class="row">
+  <div class="col-sm-4">
+    <h3><%= @position.title %></h3>
+    <br>
 
-<h4>Company: <%= @position.company.name %></h4>
-<p>Application Status: <%= @position.application_status %></p>
-<p>Description: <%= @position.description %></p>
-<p>Offer: <%= @position.offer %></p>
-<p>Schedule: <%= @position.schedule %></p>
-<p>URL: <%= @position.url %></p>
-<p>Estimated Salary: <%= @position.est_salary %></p>
-<p>Notes: <%= @position.notes %></p>
-<p>Resume: <a href="http://<%= @position.resume %>"><%= @position.resume %></a>
-  </p>
-<p>Cover Letter: <a href="http://<%= @position.cover_letter %>"><%= @position.cover_letter %></a></p>
+    <h4>Company: <%= @position.company.name %></h4>
+    <p>Application Status: <%= @position.application_status %></p>
+    <p>Description: <%= @position.description %></p>
+    <p>Offer: <%= @position.offer %></p>
+    <p>Schedule: <%= @position.schedule %></p>
+    <p>URL: <%= @position.url %></p>
+    <p>Estimated Salary: <%= @position.est_salary %></p>
+    <p>Notes: <%= @position.notes %></p>
+    <p>Resume: <a href="http://<%= @position.resume %>"><%= @position.resume %></a>
+      </p>
+    <p>Cover Letter: <a href="http://<%= @position.cover_letter %>"><%= @position.cover_letter %></a></p>
 
-<a class="btn btn-default" href="/position/<%= @position.id %>/edit">Update Position Info</a><br><br>
+    <a class="btn btn-default" href="/position/<%= @position.id %>/edit">Update Position Info</a><br><br>
 
-<form action="/position/<%= @position.id %>/delete" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit" class="btn btn-danger">Delete This Position</button>
-</form>
+    <form action="/position/<%= @position.id %>/delete" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button type="submit" class="btn btn-danger">Delete This Position</button>
+    </form>
+  </div>
+  <div class="col-sm-8">
+    <h2>Correspondence with <%= @position.title %></h2>
+    <% if @position.correspondences.any? %>
+      <% @position.correspondences.each do |correspondence| %>
+        <div class="well">
+          <h4>Action: <%= correspondence.action %></h4>
+          <h4> <%= correspondence.company ?  "Company: #{correspondence.company.name}" : nil %></h4>
+          <h4> <%= correspondence.position ?  "Regarding Position: #{correspondence.position.title}" : nil %></h4>
+          <p>Mode: <%= correspondence.mode %></p>
+          <p>Date: <%= correspondence.date %></p>
+          <p>Notes: <%= correspondence.notes %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <h5>You should consider talking to people.</h5>
+    <% end %>
+  </div>
+</div>
