@@ -1,12 +1,14 @@
 <h2>Your Positions</h2>
 
+
 <% if @positions.any? %>
   <table class="table">
     <thead>
      <tr>
-       <th>Title</th>
-       <th>Company</th>
-       <th>Application Status</th>
+       <th><a href="/position/by_title">Title</a></th>
+       <th><a href="/position/by_company">Company</a></th>
+       <th><a href="/position/by_status">Application Status</a></th>
+       <th><a href="/position/by_qualification">Am I Qualified?</a></th>
      </tr>
     </thead>
     <tbody>
@@ -17,6 +19,7 @@
             <td><%= position.company.name %></td>
           <% end%>
           <td><%= position.application_status %></td>
+          <td><%= position.qualifications %></td>
        </tr>
 
      <% end %>
