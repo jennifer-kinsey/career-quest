@@ -9,18 +9,30 @@
   </head>
   <body>
     <div class="container">
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-          <ul class="nav nav-pills">
-            <li role="presentation"><a href="/users/home">Home</a></li>
-            <li role="presentation"><a href="/users/companies">Companies</a></li>
-            <li role="presentation"><a href="/contacts">Contacts</a></li>
-            <li role="presentation"><a href="/users/positions">Positions</a></li>
-            <p class="navbar-text navbar-right"><a href="/sessions/logout">Logout</a></p>
-            <p class="navbar-text navbar-right"><a href="/users/settings">Settings</a></p>
-          </ul>
-        </div>
-      </nav>
+      <% if logged_in? %>
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <ul class="nav nav-pills">
+              <li role="presentation"><a href="/users/home">Home</a></li>
+              <li role="presentation"><a href="/users/companies">Companies</a></li>
+              <li role="presentation"><a href="/contacts">Contacts</a></li>
+              <li role="presentation"><a href="/users/positions">Positions</a></li>
+              <p class="navbar-text navbar-right"><a href="/sessions/logout">Logout</a></p>
+              <p class="navbar-text navbar-right"><a href="/users/settings">Settings</a></p>
+            </ul>
+          </div>
+        </nav>
+      <% else %>
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <ul class="nav nav-pills">
+              <p class="navbar-text navbar-right"><a href="/sessions/login">Login</a></p>
+              <p class="navbar-text navbar-right"><a href="/registrations/signup">Sign Up</a></p>
+            </ul>
+          </div>
+        </nav>
+      <% end %>
+
       <h1>Career Quest</h1>
       <hr>
       <%= yield %>
