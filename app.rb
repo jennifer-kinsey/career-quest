@@ -66,7 +66,7 @@ end
 
 get "/users/new_position" do
   @user = current_user
-  erb :add_new_position
+  erb :"/positions/add_new_position"
 end
 
 post '/users/add_new_position' do
@@ -82,7 +82,7 @@ post '/users/add_new_position' do
   })
   @companies = Company.all
   if @new_position.save
-    erb :add_new_company
+    erb :"/companies/add_new_company"
   else
     erb :error
   end
@@ -91,7 +91,7 @@ end
 get '/users/add_company' do
   @user = current_user
   @new_position = Position.find(params['id'])
-  erb :add_new_company
+  erb :"/companies/add_new_company"
 end
 
 patch '/users/add_existing_company' do
@@ -101,9 +101,10 @@ patch '/users/add_existing_company' do
   position.update({company_id: company.id})
 
   # we want to push
-  @user.companies.push(company)
+  company.positions.push(position)
+  # @user.companies.push(company)
   if position.update({company_id: company.id})
-    redirect "/users/home"
+    redirect "/users/positions"
   else
     erb :error
   end
@@ -126,8 +127,9 @@ post '/users/add_new_company' do
   @user.companies.push(@new_company)
   position = Position.find(params['position-id'])
   position.update({company_id: @new_company.id })
+  @new_company.positions.push(position)
   if @new_company.save
-    redirect "/users/home"
+    redirect "/users/positions"
   else
     erb :error
   end
@@ -135,6 +137,7 @@ end
 
 get '/users/companies' do
   @user = current_user
+  @companies = @user.companies
   erb :"/companies/companies"
 end
 
@@ -160,6 +163,83 @@ post "/users/new_company_companies_page" do
     erb :error
   end
 end
+
+get '/company/:id' do
+  @company = Company.find(params['id'])
+  @positions = @company.positions
+  erb :"/companies/company"
+end
+
+get '/company/:id/edit' do
+  @company = Company.find(params['id'])
+  erb :"/companies/company_edit"
+end
+
+patch '/company/:id/edit' do
+  @company = Company.find(params['id'])
+  @company.update({
+    name: params['company_name'],
+    location: params['location'],
+    website: params['website'],
+    services: params['services'],
+    size: params['size'],
+    specializations: params['specializations'],
+    pros: params['pros'],
+    cons: params['cons'],
+    notes: params['notes'],
+    user_detail_id: current_user.id,
+  })
+  # binding.pry
+  redirect "/company/#{@company.id}"
+end
+
+delete '/company/:id/delete' do
+  company = Company.find(params['id'])
+  company.destroy
+  redirect '/users/companies'
+end
+
+get '/users/positions' do
+  @user = current_user
+  @positions = @user.positions
+  erb :"positions/positions"
+end
+
+get '/position/:id' do
+  @position = Position.find(params['id'])
+  erb :"/positions/position"
+end
+
+get '/position/:id/edit' do
+  @position = Position.find(params['id'])
+  erb :"/positions/position_edit"
+end
+
+patch '/position/:id/edit' do
+  @position = Position.find(params['id'])
+  @position.update({
+    title: params['job_title'],
+    application_status: params["application_status"],
+    description: params['description'],
+    offer: params['offer'],
+    schedule: params['schedule'],
+    url: params['url'],
+    est_salary: params['est_salary'],
+    notes: params['notes'],
+    resume: params['resume'],
+    cover_letter: params['cover_letter']
+  })
+  redirect "/position/#{@position.id}"
+end
+
+delete '/position/:id/delete' do
+  position = Position.find(params['id'])
+  position.destroy
+  redirect "/users/positions"
+end
+
+
+
 
 get "/contacts" do
   @contacts = Contact.all
@@ -213,6 +293,6 @@ end
 
 delete "/contacts/delete/:id" do
   contact = Contact.find(params["id"])
-  contact.destroy
+  contact.delete
   redirect "/contacts"
 end

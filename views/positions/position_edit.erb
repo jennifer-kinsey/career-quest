@@ -1,0 +1,39 @@
+<h3>Update <%= @position.title %></h3>
+<br>
+
+<form action="/position/<%= @position.id %>/edit" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+<label for="job_title">Job Title </label>
+<input class="form-control" type="text" name="job_title" required value="<%= @position.title %>"><br>
+
+<label for="application_status">Application Status</label>
+<input class="form-control" type="text" name="application_status" value="<%= @position.application_status %>"><br>
+
+<label for="description">Description</label>
+<input class="form-control" type="text" name="description" value="<%= @position.description %>"><br>
+
+<label for="offer">Offer</label>
+<input class="form-control" type="text" name="offer" value="<%= @position.offer %>"><br>
+
+<label for="schedule">Schedule</label>
+<input class="form-control" type="text" name="schedule" value="<%= @position.schedule %>"><br>
+
+<label for="url">Link to Job Posting</label>
+<input class="form-control" type="text" name="url" value="<%= @position.url %>"><br>
+
+<label for="est_salary">Estimated Salary</label>
+<input class="form-control" type="text" name="est_salary" value="<%= @position.est_salary %>"><br>
+
+<label for="notes">Notes</label>
+<input class="form-control" type="text" name="notes" value="<%= @position.notes %>"><br>
+
+<label for="resume">Resume (link)</label>
+<input class="form-control" type="text" name="resume" value="<%= @position.resume %>"><br>
+
+<label for="cover_letter">Cover Letter</label>
+<input class="form-control" type="text" name="cover_letter" value="<%= @position.cover_letter %>"><br>
+
+<button type="submit" class="btn btn-info">Edit Position</button>
+
+</form>

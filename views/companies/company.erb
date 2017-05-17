@@ -1,0 +1,23 @@
+<h3><%= @company.name %></h3>
+
+<p>Location: <%= @company.location %></p>
+<p>Website: <%= @company.website %></p>
+<p>Services: <%= @company.services %></p>
+<p>Size: <%= @company.size %></p>
+<p>Specializations: <%= @company.specializations %></p>
+<p>Pros: <%= @company.pros %></p>
+<p>Cons: <%= @company.cons %></p>
+<p>Notes: <%= @company.notes %></p>
+
+<hr>
+<p>Positions at this company:</p>
+<% @positions.each do |position| %>
+  <p><a href="/position/<%=position.id%>"><%= position.title %></a></p>
+<% end %>
+
+<a class="btn btn-default" href="/company/<%= @company.id %>/edit">Edit Company Info</a><br><br>
+
+<form action="/company/<%= @company.id %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger">Delete Company</button>
+</form>
