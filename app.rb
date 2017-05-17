@@ -339,3 +339,9 @@ patch "/users/settings/edit" do
   })
   redirect "/users/settings"
 end
+
+delete "/users/settings/delete" do
+  current_user.user_credential.destroy
+  current_user.destroy
+  redirect '/'
+end
