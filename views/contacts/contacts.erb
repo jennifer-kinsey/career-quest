@@ -8,16 +8,10 @@
      </thead>
      <tbody>
        <% @contacts.each do |contact| %>
-
          <tr>
            <td><a href="/contact/<%= contact.id %>"><%= contact.name %></a></td>
-           <% if contact.company %>
-             <td><a href='/company/<%= contact.company.id %>'> <%= contact.company.name %> </a></td>
-           <% else %>
-            <td>add a company for <%= contact.name%>!</td>
-           <% end %>
+             <td><%= contact.company ? "<a href='/company/#{contact.company.id}'> #{contact.company.name}</a>" : "add a company for #{contact.name}!" %></td>
          </tr>
-
        <% end %>
      </tbody>
    </table>

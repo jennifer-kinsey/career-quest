@@ -12,16 +12,13 @@
     <a href="/correspondence/add/<%= @contact.id%>" class='btn btn-default'>Add Correspondence</a>
   </div>
   <div class="col-sm-8">
-    <h2>Correspondence</h2>
+    <h2>Correspondence with <%= @contact.name %></h2>
     <% if @contact.correspondences.any? %>
       <% @contact.correspondences.each do |correspondence| %>
         <div class="well">
-          <h4>correspondence.action</h4>
+          <h4>Action: <%= correspondence.action %></h4>
           <% if correspondence.company.name %>
             <%="<h5>Company: #{correspondence.company.name}</h5> "%>
-          <% end %>
-          <% if correspondence.contact.name %>
-            <%="<h5>Contact: #{correspondence.contact.name}</h5> "%>
           <% end %>
           <% if correspondence.mode %>
             <%="<h5>Communication Method: #{correspondence.mode}</h5> "%>

@@ -339,6 +339,10 @@ post '/correspondence/new' do
     position_id: params['position-id'],
     company_id: params['company-id']
     })
-binding.pry
   redirect '/users/correspondences'
+end
+
+get '/correspondence/:id' do
+  @correspondence = Correspondence.find(params['id'])
+  erb :"correspondences/correspondence"
 end
