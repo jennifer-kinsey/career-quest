@@ -310,6 +310,44 @@ delete "/contacts/delete/:id" do
   redirect "/contacts"
 end
 
+
+get '/users/correspondences' do
+  @user = current_user
+  @correspondences = @user.correspondences
+  if @user
+    @correspondences = @user.correspondences
+    erb :"correspondences/correspondences"
+  else
+    erb :error
+  end
+end
+
+get '/correspondence/new' do
+  @user = current_user
+  @companies = @user.companies
+  @positions = @user.positions
+  @contacts = @user.contacts
+  erb :"correspondences/add_correspondence"
+end
+
+post '/correspondence/new' do
+  current_user.correspondences.create({
+    action: params['action'],
+    mode: params['mode'],
+    date: params['date'],
+    notes: params['notes'],
+    contact_id: params['contact-id'],
+    position_id: params['position-id'],
+    company_id: params['company-id']
+    })
+  redirect '/users/correspondences'
+end
+
+get '/correspondence/:id' do
+  @correspondence = Correspondence.find(params['id'])
+  erb :"correspondences/correspondence"
+end
+
 # Settings Routes
 get "/users/settings" do
   @user = current_user

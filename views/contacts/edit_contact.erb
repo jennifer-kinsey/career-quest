@@ -19,6 +19,7 @@
       <textarea class="form-control" name="contact-notes" rows="5" ><%=@contact.name %></textarea>
       <label for="company">Company:</label>
       <select name="company-id" class="form-control">
+        <option> </option>    
         <% if @contact.company %>
           <% @companies.each do |company| %>
             <%= @contact.company.name == company.name ? "<option value='#{company.id}' selected>#{company.name}</option>" : "<option value='#{company.id}'>#{company.name}</option>" %>

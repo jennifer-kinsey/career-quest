@@ -1,0 +1,13 @@
+<h3>Correspondence: <%= @correspondence.action %></h3>
+<br>
+
+<h4> <%= @correspondence.contact ?  "Contact Name: #{@correspondence.contact.name}" : nil %></h4>
+<h4> <%= @correspondence.company ?  "Company: #{@correspondence.company.name}" : nil %></h4>
+<h4> <%= @correspondence.position ?  "Regarding Position: #{@correspondence.position.title}" : nil %></h4>
+
+
+<p>Mode: <%= @correspondence.mode %></p>
+<p>Date: <%= @correspondence.date %></p>
+<p>Notes: <%= @correspondence.notes %></p>
+
+<a class="btn btn-default" href="/correspondence/<%= @correspondence.id %>/edit">Update Correspondence</a><br><br>

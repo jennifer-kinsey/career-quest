@@ -1,0 +1,37 @@
+<h2>Add Correspondence for <%= @user.name %></h2>
+
+<form class="form-group" action="/correspondence/new" method="post">
+  <label for="action">Action</label>
+  <input class="form-control" placeholder="e.g. sent resume and had coffee" type="text" name="action" required>
+  <label for="mode">Mode of Communication</label>
+  <input class="form-control" placeholder="e.g. phone call, in person, email" type="text" name="mode">
+  <label for="date">Date of Contact</label>
+  <input class="form-control" type="date" name="date">
+  <label for="notes">Notes</label>
+  <textarea class="form-control" name="notes" rows="5"></textarea>
+  <label for="company">Company:</label>
+  <select name="company-id" class="form-control">
+    <option> </option>
+    <% @companies.each do |company| %>
+      <option value="<%= company.id %>"><%= company.name%></option>
+    <% end %>
+  </select>
+  <br>
+  <label for="position">Position:</label>
+  <select name="position-id" class="form-control">
+    <option> </option>
+    <% @positions.each do |position| %>
+      <option value="<%= position.id %>"><%= position.title %>, <%= position.company.name %></option>
+    <% end %>
+  </select>
+  <br>
+  <label for="contact">Contact:</label>
+  <select name="contact-id" class="form-control">
+    <option> </option>
+    <% @contacts.each do |contact| %>
+      <option value="<%= contact.id %>"><%= contact.name%></option>
+    <% end %>
+  </select>
+  <br>
+  <button type="submit" class="btn btn-info">Add Correspondence</button>
+</form>
