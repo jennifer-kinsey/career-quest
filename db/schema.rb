@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516230802) do
+ActiveRecord::Schema.define(version: 20170517171412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170516230802) do
     t.uuid "user_detail_id"
   end
 
-  create_table "correspondences", force: :cascade do |t|
+  create_table "correspondences", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "action"
     t.string "mode"
     t.date "date"
@@ -52,12 +52,13 @@ ActiveRecord::Schema.define(version: 20170516230802) do
     t.string "notes"
     t.uuid "contact_id"
     t.uuid "position_id"
+    t.uuid "user_detail_id"
+    t.uuid "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "user_detail_id"
   end
 
-  create_table "positions", force: :cascade do |t|
+  create_table "positions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.string "application_status"
     t.string "description"
@@ -69,10 +70,10 @@ ActiveRecord::Schema.define(version: 20170516230802) do
     t.string "resume"
     t.string "cover_letter"
     t.uuid "company_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.uuid "user_detail_id"
     t.date "application_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

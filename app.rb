@@ -250,11 +250,6 @@ delete '/position/:id/delete' do
   redirect "/users/positions"
 end
 
-# get "/contacts" do
-#   @contacts = Contact.all
-#   erb :"contacts/contacts"
-# end
-
 get "/contacts" do
   if current_user
     @contacts = current_user.contacts
@@ -313,4 +308,37 @@ delete "/contacts/delete/:id" do
   contact = Contact.find(params["id"])
   contact.delete
   redirect "/contacts"
+end
+
+get '/users/correspondences' do
+  @user = current_user
+  @correspondences = @user.correspondences
+  if @user
+    @correspondences = @user.correspondences
+    erb :"correspondences/correspondences"
+  else
+    erb :error
+  end
+end
+
+get '/correspondence/new' do
+  @user = current_user
+  @companies = @user.companies
+  @positions = @user.positions
+  @contacts = @user.contacts
+  erb :"correspondences/add_correspondence"
+end
+
+post '/correspondence/new' do
+  current_user.correspondences.create({
+    action: params['action'],
+    mode: params['mode'],
+    date: params['date'],
+    notes: params['notes'],
+    contact_id: params['contact-id'],
+    position_id: params['position-id'],
+    company_id: params['company-id']
+    })
+binding.pry
+  redirect '/users/correspondences'
 end

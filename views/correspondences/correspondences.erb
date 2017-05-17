@@ -1,0 +1,32 @@
+<h2><%= @user.name %></h2>
+
+<a href="/correspondence/new">New Correspondence</a>
+
+<% if @correspondences.any? %>
+  <table class="table">
+     <thead>
+       <tr>
+         <th>Action</th>
+         <th>Contact</th>
+         <th>Position</th>
+         <th>Company</th>
+       </tr>
+     </thead>
+     <tbody>
+       <% @correspondences.each do |correspondence| %>
+
+         <tr>
+           <td><a href="/correspondence/<%= correspondence.id %>"><%= correspondence.action %></a></td>
+           <%= correspondence.contact ? "<td>#{correspondence.contact.name}</td>" : nil%>
+           <%= correspondence.position ? "<td>#{correspondence.position.title}</td>" : nil%>
+           <%= correspondence.company ? "<td>#{correspondence.company.name}</td>" : nil%>
+         </tr>
+
+       <% end %>
+     </tbody>
+   </table>
+<% else %>
+  <p>There are no correspondences yet! </p>
+<% end %>
+
+<a href="/users/home">Return home</a>
