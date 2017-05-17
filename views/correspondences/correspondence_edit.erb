@@ -1,0 +1,61 @@
+<%= @correspondence.action %>
+
+<form action="/correspondence/<%= @correspondence.id %>/edit" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <label for="action">Action</label>
+  <input class="form-control" placeholder="e.g. sent resume and had coffee" type="text" name="action" required value="<%= @correspondence.action %>">
+  <label for="mode">Mode of Communication</label>
+  <input class="form-control" placeholder="e.g. phone call, in person, email" type="text" name="mode" value="<%= @correspondence.mode %>">
+  <label for="date">Date of Contact</label>
+  <input class="form-control" type="date" name="date" value="<%= @correspondence.date %>">
+  <label for="notes">Notes</label>
+  <textarea class="form-control" name="notes" rows="5" ><%= @correspondence.action %></textarea>
+  <label for="company">Company:</label>
+  <select name="company-id" class="form-control">
+    <option> </option>
+    <% @companies.each do |company| %>
+      <% if @correspondence.company %>
+          <%= @correspondence.company.id  == company.id ? "<option selected value='#{company.id}'>#{company.name}</option>" : "<option value='#{company.id}'>#{company.name}</option>" %>
+        <% else %>
+          <%= "<option value='#{company.id}'>#{company.name}</option>"%>
+      <% end %>
+    <% end %>
+  </select>
+  <br>
+
+
+
+  <label for="position">Position:</label>
+  <select name="position-id" class="form-control">
+    <option> </option>
+    <% @positions.each do |position| %>
+      <% if @correspondence.position %>
+          <%= @correspondence.position.id  == position.id ? "<option selected value='#{position.id}'>#{position.title}</option>" : "<option value='#{position.id}'>#{position.title}</option>" %>
+        <% else %>
+          <%= "<option value='#{position.id}'>#{position.title}</option>"%>
+      <% end %>
+    <% end %>
+  </select>
+  <br>
+
+
+  <select name="contact-id" class="form-control">
+    <option> </option>
+    <% @contacts.each do |contact| %>
+      <% if @correspondence.contact %>
+          <%= @correspondence.contact.id  == contact.id ? "<option selected value='#{contact.id}'>#{contact.name}</option>" : "<option value='#{contact.id}'>#{contact.name}</option>" %>
+        <% else %>
+          <%= "<option value='#{contact.id}'>#{contact.name}</option>"%>
+      <% end %>
+    <% end %>
+  </select>
+  <br>
+  <button type="submit" class="btn btn-info">Edit Correspondence</button>
+</form>
+<hr>
+<form action="/correspondence/<%= @correspondence.id %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger">Delete Correspondence</button>
+
+</form>
