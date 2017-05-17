@@ -5,7 +5,7 @@ class Company < ActiveRecord::Base
   has_many :contacts
   has_many :correspondences
 
-  validates(:name, {presence: true, uniqueness: true, length: { maximum: 32}})
+  validates(:name, {presence: true, uniqueness: {scope: :user_detail_id}, length: { maximum: 32}})
 
   before_destroy :destroy_positions
 

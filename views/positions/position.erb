@@ -6,6 +6,7 @@
     <h4>Company: <%= @position.company.name %></h4>
     <p>Application Status: <%= @position.application_status %></p>
     <p>Description: <%= @position.description %></p>
+    <p>Qualifications: <%= @position.qualifications %></p>
     <p>Offer: <%= @position.offer %></p>
     <p>Schedule: <%= @position.schedule %></p>
     <p>URL: <%= @position.url %></p>
@@ -15,12 +16,9 @@
       </p>
     <p>Cover Letter: <a href="http://<%= @position.cover_letter %>"><%= @position.cover_letter %></a></p>
 
-    <a class="btn btn-default" href="/position/<%= @position.id %>/edit">Update Position Info</a><br><br>
+    <a class="btn btn-default" href="/position/<%= @position.id %>/edit">Update Position Info</a>
+    <a href="/correspondence/new" class='btn btn-default'>Add Correspondence</a>
 
-    <form action="/position/<%= @position.id %>/delete" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <button type="submit" class="btn btn-danger">Delete This Position</button>
-    </form>
   </div>
   <div class="col-sm-8">
     <h2>Correspondence with <%= @position.title %></h2>

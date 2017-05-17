@@ -17,9 +17,10 @@
       <input class="form-control" type="text" name="contact-linkedin" value="<%=@contact.linkedin %>">
       <label for="contact-notes">Notes</label>
       <textarea class="form-control" name="contact-notes" rows="5" ><%=@contact.name %></textarea>
+
       <label for="company">Company:</label>
       <select name="company-id" class="form-control">
-        <option> </option>    
+        <option> </option>
         <% if @contact.company %>
           <% @companies.each do |company| %>
             <%= @contact.company.name == company.name ? "<option value='#{company.id}' selected>#{company.name}</option>" : "<option value='#{company.id}'>#{company.name}</option>" %>
@@ -31,6 +32,7 @@
         <% end %>
       </select>
       <br>
+
       <button type="submit" class="btn btn-info">Edit Contact</button>
     </form>
     <form action="/contacts/delete/<%= @contact.id%>" method="post">

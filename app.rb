@@ -6,6 +6,7 @@ use Rack::Session::Cookie, :secret => '877de719-65d4-4f40-83bf-3b83d56d40db'
 
 helpers do
   def logged_in?
+    return false if session[:user].nil?
     !session[:user].empty?
   end
 
@@ -83,6 +84,7 @@ post '/users/add_new_position' do
     url: params['url'],
     notes: params['notes'],
     user_detail_id: @user.id,
+    qualifications: params["qualifications"]
   })
   @companies = @user.companies
   if @new_position.save

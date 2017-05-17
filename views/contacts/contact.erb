@@ -9,7 +9,7 @@
     <h5>Notes</h5>
     <p><%= @contact.notes %></p>
     <a href="/contacts/edit/<%= @contact.id%>" class='btn btn-default'>Edit Contact</a>
-    <a href="/correspondence/add/<%= @contact.id%>" class='btn btn-default'>Add Correspondence</a>
+    <a href="/correspondence/new" class='btn btn-default'>Add Correspondence</a>
   </div>
   <div class="col-sm-8">
     <h2>Correspondence with <%= @contact.name %></h2>
