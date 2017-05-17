@@ -8,7 +8,14 @@
 <input class="form-control" type="text" name="job_title" required value="<%= @position.title %>"><br>
 
 <label for="application_status">Application Status</label>
-<input class="form-control" type="text" name="application_status" value="<%= @position.application_status %>"><br>
+<select name="application_status" type="text" class="form-control">
+  <option value=""></option>
+  <option value="Not Applied">Not Applied</option>
+  <option value="Applied, Pending Response">Applied, Pending Response</option>
+  <option value="Applied, In Progress">Applied, In Progress</option>
+  <option value="Received Offer">Received Offer</option>
+  <option value="Archived">Archived</option>
+</select><br>
 
 <label for="description">Description</label>
 <input class="form-control" type="text" name="description" value="<%= @position.description %>"><br>
