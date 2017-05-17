@@ -29,8 +29,12 @@ end
 
 get "/users/home" do
   @user = current_user
-  @companies = Company.all
-  erb :"/users/home"
+  if @user
+    @companies = @user.companies
+    erb :"/users/home"
+  else
+    erb :error
+  end
 end
 
 get "/registrations/signup" do
@@ -80,7 +84,7 @@ post '/users/add_new_position' do
     notes: params['notes'],
     user_detail_id: @user.id,
   })
-  @companies = Company.all
+  @companies = @user.companies
   if @new_position.save
     erb :"/companies/add_new_company"
   else
@@ -137,8 +141,12 @@ end
 
 get '/users/companies' do
   @user = current_user
-  @companies = @user.companies
-  erb :"/companies/companies"
+  if !@user
+    erb :error
+  else
+    @companies = @user.companies
+    erb :"/companies/companies"
+  end
 end
 
 post "/users/new_company_companies_page" do
@@ -201,8 +209,12 @@ end
 
 get '/users/positions' do
   @user = current_user
-  @positions = @user.positions
-  erb :"positions/positions"
+  if @user
+    @positions = @user.positions
+    erb :"positions/positions"
+  else
+    erb :error
+  end
 end
 
 get '/position/:id' do
@@ -238,12 +250,18 @@ delete '/position/:id/delete' do
   redirect "/users/positions"
 end
 
-
-
+# get "/contacts" do
+#   @contacts = Contact.all
+#   erb :"contacts/contacts"
+# end
 
 get "/contacts" do
-  @contacts = Contact.all
-  erb :"contacts/contacts"
+  if current_user
+    @contacts = current_user.contacts
+    erb :"contacts/contacts"
+  else
+    erb :error
+  end
 end
 
 get "/contacts/add" do

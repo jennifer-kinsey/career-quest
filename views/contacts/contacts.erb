@@ -1,5 +1,4 @@
-
-
+<% if @contacts.any? %>
   <table class="table">
      <thead>
        <tr>
@@ -22,5 +21,8 @@
        <% end %>
      </tbody>
    </table>
-
-<a href="/contacts/add" class="btn btn-info">Add Contact</a>
+<% else %>
+  <p>There are no contacts yet! </p>
+<% end %>
+<a href="/contacts/add" class="btn btn-info">Add Contact</a><br>
+<a href="/users/home">Return home</a>
