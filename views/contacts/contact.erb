@@ -1,9 +1,44 @@
-<h2><%= @contact.name %></h2>
-<h3><%= @contact.company ? "#{@contact.job_title} at #{@contact.company.name}" : "#{@contact.job_title}" %></h3>
-<h4>Contact Info:</h4>
-<h5>Phone: <%= @contact.phone %></h5>
-<h5>Email: <%= @contact.email %></h5>
-<h5>LinkedIn: <%= @contact.linkedin %></h5>
-<h5>Notes</h5>
-<p><%= @contact.notes %></p>
-<a href="/contacts/edit/<%= @contact.id%>" class='btn btn-default'>Edit Contact</a>
+<div class="row">
+  <div class="col-sm-4">
+    <h2><%= @contact.name %></h2>
+    <h3><%= @contact.company ? "#{@contact.job_title} at #{@contact.company}" : "#{@contact.job_title}" %></h3>
+    <h4>Contact Info:</h4>
+    <h5>Phone: <%= @contact.phone %></h5>
+    <h5>Email: <%= @contact.email %></h5>
+    <h5>LinkedIn: <%= @contact.linkedin %></h5>
+    <h5>Notes</h5>
+    <p><%= @contact.notes %></p>
+    <a href="/contacts/edit/<%= @contact.id%>" class='btn btn-default'>Edit Contact</a>
+    <a href="/correspondence/add/<%= @contact.id%>" class='btn btn-default'>Add Correspondence</a>
+  </div>
+  <div class="col-sm-8">
+    <h2>Correspondence</h2>
+    <% if @contact.correspondences.any? %>
+      <% @contact.correspondences.each do |correspondence| %>
+        <div class="well">
+          <h4>correspondence.action</h4>
+          <% if correspondence.company.name %>
+            <%="<h5>Company: #{correspondence.company.name}</h5> "%>
+          <% end %>
+          <% if correspondence.contact.name %>
+            <%="<h5>Contact: #{correspondence.contact.name}</h5> "%>
+          <% end %>
+          <% if correspondence.mode %>
+            <%="<h5>Communication Method: #{correspondence.mode}</h5> "%>
+          <% end %>
+          <% if correspondence.result %>
+            <%="<h5>Communication Method: #{correspondence.result}</h5> "%>
+          <% end %>
+          <% if correspondence.notes %>
+            <%="<h5>Notes: #{correspondence.notes}</h5> "%>
+          <% end %>
+          <% if correspondence.date %>
+            <%="<h5>Date: #{correspondence.date}</h5> "%>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <h5>You should consider talking to people.</h5>
+    <% end %>
+  </div>
+</div>
