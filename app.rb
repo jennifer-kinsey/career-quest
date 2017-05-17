@@ -32,6 +32,7 @@ get "/users/home" do
   @user = current_user
   if @user
     @companies = @user.companies
+    @not_applied_positions = @user.positions.where(:application_status => "Not Applied")
     erb :"/users/home"
   else
     erb :error
@@ -78,7 +79,7 @@ post '/users/add_new_position' do
   @user = current_user
   @new_position = Position.create({
     title: params['job_title'],
-    application_status: "incomplete",
+    application_status: params['application_status'],
     description: params['description'],
     est_salary: params['est_salary'],
     url: params['url'],
@@ -105,10 +106,7 @@ patch '/users/add_existing_company' do
   company = Company.find(params['company-id'])
   position = Position.find(params['position-id'])
   position.update({company_id: company.id})
-
-  # we want to push
   company.positions.push(position)
-  # @user.companies.push(company)
   if position.update({company_id: company.id})
     redirect "/users/positions"
   else

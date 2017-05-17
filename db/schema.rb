@@ -77,6 +77,10 @@ ActiveRecord::Schema.define(version: 20170517225224) do
     t.string "qualifications"
   end
 
+  create_table "quotes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "tip"
+  end
+
   create_table "user_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
