@@ -210,9 +210,45 @@ delete '/company/:id/delete' do
 end
 
 get '/users/positions' do
-  @user = current_user
-  if @user
-    @positions = @user.positions
+
+  if logged_in?
+    @positions = current_user.positions
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
+get '/position/by_qualification' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.qualifications}
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
+get '/position/by_company' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.company.name}
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
+get '/position/by_title' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.title}
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
+get '/position/by_status' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.application_status}
     erb :"positions/positions"
   else
     erb :error
