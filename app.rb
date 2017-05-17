@@ -41,7 +41,7 @@ get "/registrations/signup" do
   erb :"/registrations/signup"
 end
 
-post "/registrations" do
+patch "/registrations" do
   @user = UserCredential.create({
     email: params["user-email"],
     password: params["user-password"],
@@ -250,11 +250,6 @@ delete '/position/:id/delete' do
   redirect "/users/positions"
 end
 
-# get "/contacts" do
-#   @contacts = Contact.all
-#   erb :"contacts/contacts"
-# end
-
 get "/contacts" do
   if current_user
     @contacts = current_user.contacts
@@ -313,4 +308,40 @@ delete "/contacts/delete/:id" do
   contact = Contact.find(params["id"])
   contact.delete
   redirect "/contacts"
+end
+
+# Settings Routes
+get "/users/settings" do
+  @user = current_user
+  erb :"/users/settings"
+end
+
+get "/users/settings/edit" do
+  @user = current_user
+  erb :"/users/settings_edit"
+end
+
+patch "/users/settings/edit" do
+  @user = current_user
+  @user.update({
+    career_objectives: params["career_objectives"],
+    webpage: params["webpage"],
+    resume_template: params["resume_template"],
+    cover_letter_template: params["cover_letter_template"],
+    skills: params["skills"],
+    name: params["user-name"]
+  })
+  @user.user_credential.update({
+    name: params["user-name"],
+    email: params["user-email"],
+    password: params["user-password"],
+    password_confirmation: params["user-password-confirmation"]
+  })
+  redirect "/users/settings"
+end
+
+delete "/users/settings/delete" do
+  current_user.user_credential.destroy
+  current_user.destroy
+  redirect '/'
 end
