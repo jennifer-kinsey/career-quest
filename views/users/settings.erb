@@ -1,0 +1,14 @@
+<h2>Settings</h2>
+
+<p>Name: <%= @user.name %></p>
+<p>User Credential Name: <%= @user.user_credential.name %></p>
+<p>Email: <%= @user.user_credential.email %></p>
+
+<p>Career Objectives: <%= @user.career_objectives %></p>
+<p>Webpage: <%= @user.webpage %></p>
+<p>Resume Template: <%= @user.resume_template %></p>
+<p>Cover Letter Template: <%= @user.cover_letter_template %></p>
+<p>Skills: <%= @user.skills %></p>
+
+<a href="/users/settings/edit" class="btn btn-default">Update Settings</a>
+<a href="/users/home" class="btn btn-default">Return Home</a>

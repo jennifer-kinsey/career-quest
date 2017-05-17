@@ -1,0 +1,40 @@
+<form action="/users/settings/edit" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <!-- Update User Credentials -->
+  <h3>Update Settings</h3><br>
+  <label for="user-name">Update Name: </label>
+  <input class="form-control" type="text" name="user-name" value="<%= @user.user_credential.name%>"><br>
+
+  <label for="user-email">Update Email: </label>
+  <input class="form-control" type="text" name="user-email" value="<%= @user.user_credential.email%>"><br>
+
+  <label for="user-password">Update Password:</label>
+  <input class="form-control" type="password" name="user-password" value="<%= @user.user_credential.password%>"><br>
+
+  <hr>
+
+  <!-- Update User Details -->
+  <h3>Update Details</h3><br>
+  <label for="career_objectives">Career Objectives: </label>
+  <input class="form-control" type="text" name="career_objectives" value="<%= @user.career_objectives%>"><br>
+
+  <label for="webpage">Webpage: </label>
+  <input class="form-control" type="text" name="webpage" value="<%= @user.webpage%>"><br>
+
+  <label for="resume_template">Resume Template: </label>
+  <input class="form-control" type="text" name="resume_template" value="<%= @user.resume_template %>"><br>
+
+  <label for="cover_letter_template">Cover Letter Template: </label>
+  <input class="form-control" type="text" name="cover_letter_template" value="<%= @user.cover_letter_template%>"><br>
+
+  <label for="skills">Skills: </label>
+  <input class="form-control" type="text" name="skills" value="<%= @user.skills%>"><br>
+
+  <br>
+  <button type="submit" class="btn btn-info">Update Settings</button>
+</form>
+
+<form class="" action="index.html" method="post">
+
+</form>
