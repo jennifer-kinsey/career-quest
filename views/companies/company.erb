@@ -17,12 +17,8 @@
       <p><a href="/position/<%=position.id%>"><%= position.title %></a></p>
     <% end %>
 
-    <a class="btn btn-default" href="/company/<%= @company.id %>/edit">Edit Company Info</a><br><br>
-
-    <form action="/company/<%= @company.id %>/delete" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <button type="submit" class="btn btn-danger">Delete Company</button>
-    </form>
+    <a class="btn btn-default" href="/company/<%= @company.id %>/edit">Edit Company Info</a>
+    <a href="/correspondence/new" class='btn btn-default'>Add Correspondence</a>
   </div>
   <div class="col-sm-8">
     <h2>Correspondence with <%= @company.name %></h2>

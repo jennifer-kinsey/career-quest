@@ -1,6 +1,5 @@
-<h2><%= @user.name %></h2>
+<h2>Your Correspondences</h2>
 
-<a href="/correspondence/new">New Correspondence</a>
 
 <% if @correspondences.any? %>
   <table class="table">
@@ -29,4 +28,4 @@
   <p>There are no correspondences yet! </p>
 <% end %>
 
-<a href="/users/home">Return home</a>
+<a href="/correspondence/new">Add Correspondence</a>
