@@ -1,24 +1,26 @@
-<div class="row">
-  <div class="col-sm-4 contacts">
-    <h2>Contacts</h2>
-    <% if @contacts.any? %>
-      <% @contacts.each do |contact| %>
-        <%= "<h4><a href='contact/#{contact.id}'>#{contact.name}#{contact.company ? ', ' + contact.company.name : nil}</a></h4>" %>
-      <% end %>
-    <% else %>
-      <h4>Leave your mother's basement and meet people. Then add them here!</h4>
-    <% end %>
-    <a href="/contacts/add" class="btn btn-info">Add Contact</a>
-  </div>
 
-  <!-- <div class="col-sm-8 recent">
-    <h2>Recent Correspondence</h2>
-    <% if @contacts.any? %>
-      <% @contacts.each do |contact| %>
-        <%= "<h4><a href='contact/#{contact.id}'>#{contact.name}, #{contact.company}</a></h4>" %>
-      <% end %>
-    <% else %>
-      <h4>This is where you would keep your correspondence if you talked to anyone. Ever.</h4>
-    <% end %>
-  </div> -->
-</div>
+
+  <table class="table">
+     <thead>
+       <tr>
+         <th>Name</th>
+         <th>Company</th>
+       </tr>
+     </thead>
+     <tbody>
+       <% @contacts.each do |contact| %>
+
+         <tr>
+           <td><a href="/contact/<%= contact.id %>"><%= contact.name %></a></td>
+           <% if contact.company %>
+             <td><a href='/company/<%= contact.company.id %>'> <%= contact.company.name %> </a></td>
+           <% else %>
+            <td>add a company for <%= contact.name%>!</td>
+           <% end %>
+         </tr>
+
+       <% end %>
+     </tbody>
+   </table>
+
+<a href="/contacts/add" class="btn btn-info">Add Contact</a>
