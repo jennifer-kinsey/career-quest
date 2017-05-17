@@ -6,6 +6,7 @@ use Rack::Session::Cookie, :secret => '877de719-65d4-4f40-83bf-3b83d56d40db'
 
 helpers do
   def logged_in?
+    return false if session[:user].nil?
     !session[:user].empty?
   end
 
@@ -84,6 +85,7 @@ post '/users/add_new_position' do
     url: params['url'],
     notes: params['notes'],
     user_detail_id: @user.id,
+    qualifications: params["qualifications"]
   })
   @companies = @user.companies
   if @new_position.save
@@ -206,9 +208,45 @@ delete '/company/:id/delete' do
 end
 
 get '/users/positions' do
-  @user = current_user
-  if @user
-    @positions = @user.positions
+
+  if logged_in?
+    @positions = current_user.positions
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
+get '/position/by_qualification' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.qualifications}
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
+get '/position/by_company' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.company.name}
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
+get '/position/by_title' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.title}
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
+get '/position/by_status' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.application_status}
     erb :"positions/positions"
   else
     erb :error
@@ -344,6 +382,32 @@ end
 get '/correspondence/:id' do
   @correspondence = Correspondence.find(params['id'])
   erb :"correspondences/correspondence"
+end
+
+get '/correspondence/:id/edit' do
+  @companies = current_user.companies
+  @positions = current_user.positions
+  @contacts = current_user.contacts
+  @correspondence = Correspondence.find(params['id'])
+  erb :"correspondences/correspondence_edit"
+end
+
+patch '/correspondence/:id/edit' do
+  Correspondence.find(params['id']).update({
+    action: params['action'],
+    mode: params['mode'],
+    date: params['date'],
+    notes: params['notes'],
+    contact_id: params['contact-id'],
+    position_id: params['position-id'],
+    company_id: params['company-id']
+    })
+  redirect "correspondence/#{params['id']}"
+end
+
+delete '/correspondence/:id/delete' do
+  Correspondence.find(params['id']).delete
+  redirect '/users/correspondences'
 end
 
 # Settings Routes

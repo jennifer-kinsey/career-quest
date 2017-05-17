@@ -6,6 +6,7 @@ set :root, Dir.pwd
 
 require "shoulda-matchers"
 require "capybara/rspec"
+require "user_helper"
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
 require "./app"
@@ -13,6 +14,7 @@ require "./app"
 Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each { |file| require file }
 
 RSpec.configure do |config|
+  config.include(UserHelper)
   config.after(:each) do
     Company.all.each do |d|
       d.destroy

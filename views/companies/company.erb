@@ -1,23 +1,40 @@
-<h3><%= @company.name %></h3>
+<div class="row">
+  <div class="col-sm-4">
+    <h3><%= @company.name %></h3>
 
-<p>Location: <%= @company.location %></p>
-<p>Website: <%= @company.website %></p>
-<p>Services: <%= @company.services %></p>
-<p>Size: <%= @company.size %></p>
-<p>Specializations: <%= @company.specializations %></p>
-<p>Pros: <%= @company.pros %></p>
-<p>Cons: <%= @company.cons %></p>
-<p>Notes: <%= @company.notes %></p>
+    <p>Location: <%= @company.location %></p>
+    <p>Website: <%= @company.website %></p>
+    <p>Services: <%= @company.services %></p>
+    <p>Size: <%= @company.size %></p>
+    <p>Specializations: <%= @company.specializations %></p>
+    <p>Pros: <%= @company.pros %></p>
+    <p>Cons: <%= @company.cons %></p>
+    <p>Notes: <%= @company.notes %></p>
 
-<hr>
-<p>Positions at this company:</p>
-<% @positions.each do |position| %>
-  <p><a href="/position/<%=position.id%>"><%= position.title %></a></p>
-<% end %>
+    <hr>
+    <p>Positions at this company:</p>
+    <% @positions.each do |position| %>
+      <p><a href="/position/<%=position.id%>"><%= position.title %></a></p>
+    <% end %>
 
-<a class="btn btn-default" href="/company/<%= @company.id %>/edit">Edit Company Info</a><br><br>
-
-<form action="/company/<%= @company.id %>/delete" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit" class="btn btn-danger">Delete Company</button>
-</form>
+    <a class="btn btn-default" href="/company/<%= @company.id %>/edit">Edit Company Info</a>
+    <a href="/correspondence/new" class='btn btn-default'>Add Correspondence</a>
+  </div>
+  <div class="col-sm-8">
+    <h2>Correspondence with <%= @company.name %></h2>
+    <% if @company.correspondences.any? %>
+      <% @company.correspondences.each do |correspondence| %>
+        <div class="well">
+          <h4>Action: <%= correspondence.action %></h4>
+          <h4> <%= correspondence.company ?  "Company: #{correspondence.company.name}" : nil %></h4>
+          <h4> <%= correspondence.position ?  "Regarding Position: #{correspondence.position.title}" : nil %></h4>
+          <p>Mode: <%= correspondence.mode %></p>
+          <p>Date: <%= correspondence.date %></p>
+          <p>Notes: <%= correspondence.notes %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <h5>You should consider talking to people.</h5>
+    <% end %>
+  </div>
+</div>

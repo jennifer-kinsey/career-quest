@@ -20,6 +20,13 @@
 <label for="description">Description</label>
 <input class="form-control" type="text" name="description" value="<%= @position.description %>"><br>
 
+<label for="qualifications">Am I Qualified?</label>
+<select class="form-control" name="qualifications">
+  <%= @position.qualifications == "Overqualified" ? "<option selected value='Overqualified'>Overqualified</option>" : "<option value='Overqualified'>Overqualified</option>" %>
+  <%= @position.qualifications == "Perfectly Qualified" ? "<option selected value='Perfectly Qualified'>Perfectly Qualified</option>" : "<option value='Perfectly Qualified'>Perfectly Qualified</option>" %>
+  <%= @position.qualifications == "Underqualified" ? "<option selected value='Underqualified'>Underqualified</option>" : "<option value='Underqualified'>Underqualified</option>" %>
+</select><br>
+
 <label for="offer">Offer</label>
 <input class="form-control" type="text" name="offer" value="<%= @position.offer %>"><br>
 
@@ -43,4 +50,10 @@
 
 <button type="submit" class="btn btn-info">Edit Position</button>
 
+</form>
+<hr>
+
+<form action="/position/<%= @position.id %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger">Delete This Position</button>
 </form>
