@@ -3,6 +3,7 @@ class Company < ActiveRecord::Base
 
   has_many :positions, dependent: :destroy
   has_many :contacts
+  has_many :correspondences
 
   validates(:name, {presence: true, uniqueness: true, length: { maximum: 32}})
 
