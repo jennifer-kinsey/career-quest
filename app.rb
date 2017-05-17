@@ -104,7 +104,7 @@ patch '/users/add_existing_company' do
   company.positions.push(position)
   # @user.companies.push(company)
   if position.update({company_id: company.id})
-    redirect "/users/home"
+    redirect "/users/positions"
   else
     erb :error
   end
@@ -129,7 +129,7 @@ post '/users/add_new_company' do
   position.update({company_id: @new_company.id })
   @new_company.positions.push(position)
   if @new_company.save
-    redirect "/users/home"
+    redirect "/users/positions"
   else
     erb :error
   end
@@ -219,7 +219,7 @@ patch '/position/:id/edit' do
   @position = Position.find(params['id'])
   @position.update({
     title: params['job_title'],
-    application_status: "application_status",
+    application_status: params["application_status"],
     description: params['description'],
     offer: params['offer'],
     schedule: params['schedule'],
