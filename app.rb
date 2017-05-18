@@ -317,7 +317,7 @@ end
 
 get '/position/by_date' do
   if logged_in?
-    @positions = current_user.positions.sort_by{|position| position.application_date || 0}
+    @positions = current_user.positions.sort_by{|position| position.application_date || Time.now}
     erb :"positions/positions"
   else
     erb :error

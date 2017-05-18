@@ -26,6 +26,10 @@ body {
     padding-top: 65px;
 }
 
+#title {
+  color: #990D35;
+}
+
 .container {
   min-height: 100%;
   margin-bottom: -100px;
@@ -41,6 +45,11 @@ body {
   padding-top: 10px;
 }
 
+
+.tip-well {
+  padding: 0px 0px 20px 25px;
+}
+
 h1, h2, h3 {
   font-family: 'Quicksand', sans-serif;
   font-weight: lighter;
@@ -50,7 +59,6 @@ h1, h2, h3 {
   font-family: 'Work Sans', sans-serif;
   padding-left: 20px;
 }
-
 
 #tip {
   font-family: 'Work Sans', sans-serif;
@@ -68,7 +76,6 @@ a {
   height: 100px;
   background-color: #f2f2f2;
   text-align: center;
-  /*margin-top: 50px;*/
 }
 
 .footer-top p {
@@ -96,4 +103,13 @@ a {
 
 .footer-bottom p {
   padding-top: 30px;
+}
+
+
+#tip {
+  font-family: 'Work Sans', sans-serif;
+}
+
+#quest-start {
+  text-align: center;
 }
