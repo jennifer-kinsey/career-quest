@@ -281,7 +281,7 @@ end
 
 get '/position/by_qualification' do
   if logged_in?
-    @positions = current_user.positions.sort_by{|position| position.qualifications}
+    @positions = current_user.positions.sort_by{|position| position.qualifications || ""}
     erb :"positions/positions"
   else
     erb :error
@@ -290,7 +290,7 @@ end
 
 get '/position/by_company' do
   if logged_in?
-    @positions = current_user.positions.sort_by{|position| position.company.name}
+    @positions = current_user.positions.sort_by{|position| position.company.name || ""}
     erb :"positions/positions"
   else
     erb :error
@@ -299,7 +299,7 @@ end
 
 get '/position/by_title' do
   if logged_in?
-    @positions = current_user.positions.sort_by{|position| position.title}
+    @positions = current_user.positions.sort_by{|position| position.title || ""}
     erb :"positions/positions"
   else
     erb :error
@@ -308,7 +308,7 @@ end
 
 get '/position/by_status' do
   if logged_in?
-    @positions = current_user.positions.sort_by{|position| position.application_status}
+    @positions = current_user.positions.sort_by{|position| position.application_status || ""}
     erb :"positions/positions"
   else
     erb :error

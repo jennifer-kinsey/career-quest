@@ -29,6 +29,7 @@ describe("companies path", {:type => :feature}) do
     login
     visit("/users/home")
     click_link("Companies")
+    click_link("Add a new company")
     fill_in("company_name", with: "Guardian")
     click_button("Add Company")
     expect(page).to have_content("Guardian")
