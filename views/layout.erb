@@ -11,46 +11,51 @@
     <script src="js/scripts.js"></script>
   </head>
   <body>
-    <div class="container">
-      <% if logged_in? %>
-        <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <ul class="nav nav-pills">
-              <li role="presentation"><a href="/users/home">Home</a></li>
-              <li role="presentation"><a href="/users/companies">Companies</a></li>
-              <li role="presentation"><a href="/contacts">Contacts</a></li>
-              <li role="presentation"><a href="/users/positions">Positions</a></li>
-              <li role="presentation"><a href="/users/correspondences">Correspondences</a></li>
-              <p class="navbar-text navbar-right"><a href="/sessions/logout">Logout</a></p>
-              <p class="navbar-text navbar-right"><a href="/users/settings">Settings</a></p>
-            </ul>
-          </div>
-        </nav>
-      <% else %>
-        <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <ul class="nav nav-pills">
-              <p class="navbar-text navbar-right"><a href="/sessions/login">Login</a></p>
-              <p class="navbar-text navbar-right"><a href="/registrations/signup">Sign Up</a></p>
-            </ul>
-          </div>
-        </nav>
-      <% end %>
-      <h1 id="title">Career Quest</h1>
-      <hr>
-      <%= yield %>
+    <div id="container">
+      <div class="container">
+        <div id="body">
+          <% if logged_in? %>
+            <nav class="navbar navbar-default navbar-fixed-top">
+              <div class="container">
+                <ul class="nav nav-pills">
+                  <li class="navbar" role="presentation"><a href="/users/home">Home</a></li>
+                  <li class="navbar" role="presentation"><a href="/users/companies">Companies</a></li>
+                  <li class="navbar" role="presentation"><a href="/contacts">Contacts</a></li>
+                  <li class="navbar" role="presentation"><a href="/users/positions">Positions</a></li>
+                  <li class="navbar" role="presentation"><a href="/users/correspondences">Correspondences</a></li>
+                  <li class="navbar navbar-right"><a href="/sessions/logout">Logout</a></li>
+                  <li class="navbar navbar-right"><a href="/users/settings">Settings</a></li>
+                </ul>
+              </div>
+            </nav>
+          <% else %>
+            <nav class="navbar navbar-default navbar-fixed-top">
+              <div class="container">
+                <ul class="nav nav-pills">
+                  <li class="navbar navbar-right"><a href="/sessions/login">Login</a></li>
+                  <li class="navbar navbar-right"><a href="/registrations/signup">Sign Up</a></li>
+                </ul>
+              </div>
+            </nav>
+          <% end %>
+          <h1>Career Quest</h1>
+          <hr>
+          <%= yield %>
+        </div>
+      </div>
+
+      <footer id="footer">
+        <div class="footer-top">
+          <p>follow us</p><br>
+          <a href="https://github.com/akane0915" target="_blank"><br><i class="fa fa-github" aria-hidden="true"></i><br>asia</a>
+          <a href="https://github.com/gravytates" target="_blank"><br><i class="fa fa-github" aria-hidden="true"></i><br>grady</a>
+          <a href="https://github.com/spenceralan" target="_blank"><br><i class="fa fa-github" aria-hidden="true"></i><br>spencer</a>
+          <a href="https://github.com/jennifer-kinsey" target="_blank"><br><i class="fa fa-github" aria-hidden="true"></i><br>kinsey</a>
+        </div>
+        <div class="footer-bottom">
+          <p>hunt on</p>
+        </div>
+      </footer>
     </div>
-    <footer>
-      <div class="footer-top">
-        <p>follow us</p><br>
-        <a href="https://github.com/akane0915" target="_blank"><br><i class="fa fa-github" aria-hidden="true"></i><br>asia</a>
-        <a href="https://github.com/gravytates" target="_blank"><br><i class="fa fa-github" aria-hidden="true"></i><br>grady</a>
-        <a href="https://github.com/spenceralan" target="_blank"><br><i class="fa fa-github" aria-hidden="true"></i><br>spencer</a>
-        <a href="https://github.com/jennifer-kinsey" target="_blank"><br><i class="fa fa-github" aria-hidden="true"></i><br>kinsey</a>
-      </div>
-      <div class="footer-bottom">
-        <p>hunt on</p>
-      </div>
-    </footer>
   </body>
 </html>
