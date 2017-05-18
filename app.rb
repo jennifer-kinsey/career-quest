@@ -1,8 +1,16 @@
 require "bundler/setup"
+require 'twitter'
 Bundler.require :default
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 use Rack::Session::Cookie, :secret => '877de719-65d4-4f40-83bf-3b83d56d40db'
+
+client = Twitter::REST::Client.new do |config|
+  config.consumer_key        = "MoUVWybJPWTR94gPIGgI21mfo"
+  config.consumer_secret     = "NdpPVsv4yHXSkSADY496XYOvnw7Zp64sqR1oVHLQc0g70q2ye3"
+  config.access_token        = "1947890120-y6zKs5RDWLcwgXsUZgoPsldE2pCP0HF4TWLtUJK"
+  config.access_token_secret = "81CTF9SAj7ILPdn4Eh3prT58ka0DiXeEzkF44t6noNU7v"
+end
 
 helpers do
   def logged_in?
@@ -316,7 +324,33 @@ end
 
 get "/contact/:id" do
   @contact = Contact.find(params["id"])
+  @count = 0
   erb :"/contacts/contact"
+end
+
+post '/tweets' do
+  @contact = Contact.find(params['contact-id'])
+  @count = params['count'].to_i
+  @user = params['user']
+  tweets = client.user_timeline(@user, count: @count)
+  sweetweets = Hash.new
+  tweets.each {|tweet| sweetweets.store(tweet.full_text, tweet.retweet_count) }
+  sweetweets.each {|t, r| @contact.tweets.create({tweet: t, retweet: r, handle: @user})}
+  redirect "/contact/#{@contact.id}"
+end
+
+delete '/tweet/:id/delete' do
+  @contact = Contact.find(params['contact-id'])
+  tweet = @contact.tweets.find(params['id'].to_i)
+  tweet.delete
+  redirect "/contact/#{@contact.id}"
+end
+
+delete '/clear_tweets' do
+  @contact = Contact.find(params['contact-id'])
+  tweets = @contact.tweets
+  tweets.each {|t| t.delete }
+  redirect "/contact/#{@contact.id}"
 end
 
 get "/contacts/edit/:id" do
