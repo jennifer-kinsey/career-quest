@@ -6,6 +6,7 @@
     <h5>Phone: <%= @contact.phone %></h5>
     <h5>Email: <%= @contact.email %></h5>
     <h5>LinkedIn: <%= @contact.linkedin %></h5>
+    <h5>Twitter Handle: <%= @contact.twitter_handle %></h5>
     <h5>Notes</h5>
     <p><%= @contact.notes %></p>
     <a href="/contacts/edit/<%= @contact.id%>" class='btn btn-default'>Edit Contact</a>
@@ -17,7 +18,7 @@
       <input type="hidden" name="contact-id" value="<%= @contact.id %>">
       <label for="user">twitter handle</label>
       <br>
-      <input type="text" name="user">
+      <input type="text" name="user" value="<%= @contact.twitter_handle %>">
       <br>
       <label for="count">recent tweets to view</label>
       <br>

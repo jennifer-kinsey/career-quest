@@ -202,6 +202,10 @@ get '/users/companies' do
   end
 end
 
+get '/brand_new_company' do
+  erb :"companies/brand_new_company"
+end
+
 post "/users/new_company_companies_page" do
   @user = current_user
   @company = Company.create({
@@ -387,6 +391,7 @@ post "/contacts" do
     phone: params["contact-phone"],
     email: params["contact-email"],
     linkedin: params["contact-linkedin"],
+    twitter_handle: params['twitter_handle'],
     notes: params["contact-notes"],
     user_detail_id: current_user.id,
     company_id: params["company-id"]
@@ -447,6 +452,7 @@ patch "/contacts" do
     phone: params["contact-phone"],
     email: params["contact-email"],
     linkedin: params["contact-linkedin"],
+    twitter_handle: params['twitter_handle'],
     notes: params["contact-notes"],
     user_detail_id: current_user.id,
     company_id: params["company-id"]

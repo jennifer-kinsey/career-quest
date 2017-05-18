@@ -13,9 +13,10 @@
 
          <tr>
            <td><a href="/company/<%= company.id %>"><%= company.name %></a></td>
-           <td><a href="<%= company.website %>"></a>
-             <%= company.website %></td>
+           <td><%= company.website != "" ? "<a href='http://#{company.website}' target='_blank'>
+             #{company.website}</a>" : "add a website for #{company.name}!"%></td>
          </tr>
+
 
        <% end %>
      </tbody>
@@ -26,37 +27,4 @@
   </p>
 <% end %>
 
-<p>Add a new company:</p>
-
-<form action="/users/new_company_companies_page" method="post">
-
-<label for="company_name">Company Name: </label>
-<input class="form-control" type="text" name="company_name" required><br>
-
-<label for="location">Location: </label>
-<input class="form-control" type="text" name="location"><br>
-
-<label for="website">Website: </label>
-<input class="form-control" type="text" name="website"><br>
-
-<label for="services">What they do:</label>
-<input class="form-control" type="text" name="services"><br>
-
-<label for="size">Company Size:</label>
-<input class="form-control" type="text" name="size"><br>
-
-<label for="specializations">Company specializations:</label>
-<input class="form-control" type="text" name="specializations"><br>
-
-<label for="pros">Pros:</label>
-<input class="form-control" type="text" name="pros"><br>
-
-<label for="cons">Cons:</label>
-<input class="form-control" type="text" name="cons"><br>
-
-<label for="notes">Additional notes</label>
-<input class="form-control" type="text" name="notes"><br>
-
-<button type="submit" class="btn btn-info">Add Company</button>
-
-</form>
+<a href="/brand_new_company">Add a new company</a>
