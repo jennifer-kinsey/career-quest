@@ -47,6 +47,50 @@ get "/users/home" do
   end
 end
 
+get "/users/home/pending_response" do
+  @user = current_user
+  if @user
+    @companies = @user.companies
+    @pending_response_positions = @user.positions.where(:application_status => "Applied, Pending Response")
+    erb :"/users/home_pending_response"
+  else
+    erb :error
+  end
+end
+
+get "/users/home/in_progress" do
+  @user = current_user
+  if @user
+    @companies = @user.companies
+    @in_progress_positions = @user.positions.where(:application_status => "Applied, In Progress")
+    erb :"/users/home_in_progress"
+  else
+    erb :error
+  end
+end
+
+get "/users/home/received_offer" do
+  @user = current_user
+  if @user
+    @companies = @user.companies
+    @received_offer_positions = @user.positions.where(:application_status => "Received Offer")
+    erb :"/users/home_received_offer"
+  else
+    erb :error
+  end
+end
+
+get "/users/home/archived" do
+  @user = current_user
+  if @user
+    @companies = @user.companies
+    @archived_positions = @user.positions.where(:application_status => "Archived")
+    erb :"/users/home_archived"
+  else
+    erb :error
+  end
+end
+
 get "/registrations/signup" do
   erb :"/registrations/signup"
 end

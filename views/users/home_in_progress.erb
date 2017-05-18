@@ -7,12 +7,13 @@
 
 <h3>Your Positions: </h3>
 <ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="/users/home">Not Applied </a></li>
+  <li role="presentation"><a href="/users/home">Not Applied </a></li>
   <li role="presentation"><a href="/users/home/pending_response">Applied, Pending Response</a></li>
-  <li role="presentation"><a href="/users/home/in_progress">Applied, In Progress</a></li>
+  <li role="presentation" class="active"><a href="/users/home/in_progress">Applied, In Progress</a></li>
   <li role="presentation"><a href="/users/home/received_offer">Received Offer</a></li>
   <li role="presentation"><a href="/users/home/archived">Archived</a></li>
 </ul>
+
 
 <table class="table">
   <thead>
@@ -23,7 +24,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @not_applied_positions.each do |position| %>
+    <% @in_progress_positions.each do |position| %>
       <tr>
         <td><a href="/position/<%= position.id %>"><%= position.title %></a></td>
         <% if position.company %>
