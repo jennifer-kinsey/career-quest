@@ -40,7 +40,7 @@ get "/users/home" do
   @user = current_user
   if @user
     @companies = @user.companies
-    @not_applied_positions = @user.positions.where(:application_status => "Not Applied")
+    @not_applied_positions = @user.positions.where(:application_status => "Not Applied")+ @user.positions.where(:application_status => "")
     erb :"/users/home"
   else
     erb :error
