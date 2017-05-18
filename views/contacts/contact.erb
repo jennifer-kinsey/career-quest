@@ -10,6 +10,7 @@
     <p><%= @contact.notes %></p>
     <a href="/contacts/edit/<%= @contact.id%>" class='btn btn-default'>Edit Contact</a>
     <a href="/correspondence/new" class='btn btn-default'>Add Correspondence</a>
+    <hr>
 
     <h3>See <%= @contact.name %>'s tweets!</h3>
     <form class="twitter" action="/tweets" method="post">
@@ -21,29 +22,30 @@
       <label for="count">recent tweets to view</label>
       <br>
       <input type="number" name="count" max="50">
-      <br>
-      <button type="submit" name="button">find tweets</button>
+      <br><br>
+      <button class="btn btn-default" type="submit" name="button">find tweets</button>
     </form>
 
     <br>
-    <form class="" action="/clear_tweets" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <input type="hidden" name="contact-id" value="<%= @contact.id %>">
-      <button href="/">clear all</button>
-    </form>
-    <hr>
     <% num = 0 %>
-
-    <% @tweets.each do |tweet| %>
-      <% num += 1 %>
-      <p><%= num %>. <b><%= tweet.handle %>:</b> <%= tweet.tweet %></p>
-      <p>retweets: <%= tweet.retweet %></p>
-      <form class="" action="/tweet/<%= tweet.id %>/delete" method="post">
+    <% if @tweets.any? %>
+      <form class="" action="/clear_tweets" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="contact-id" value="<%= @contact.id %>">
-        <button class="btn btn-default" href="/">remove</button>
+        <button class="btn btn-default" href="/">clear all</button>
       </form>
       <hr>
+      <% @tweets.each do |tweet| %>
+        <% num += 1 %>
+        <p><%= num %>. <b><%= tweet.handle %>:</b> <%= tweet.tweet %></p>
+        <p>retweets: <%= tweet.retweet %></p>
+        <form class="" action="/tweet/<%= tweet.id %>/delete" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="contact-id" value="<%= @contact.id %>">
+          <button class="btn btn-default" href="/">remove</button>
+        </form>
+        <hr>
+      <%end%>
     <%end%>
 
 
