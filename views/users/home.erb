@@ -1,6 +1,6 @@
 <h2>Welcome, <%= @user.name %></h2>
 
-<div class="well">
+<div class="well tip-well">
   <h3>Tip of the Day:</h3>
   <div id="tip">
     <%= Quote.order("RANDOM()").first.tip%>
