@@ -30,7 +30,7 @@
       <tr>
         <td><%= position.title %></td>
         <% if position.company %>
-          <td><%= position.company.name %></td>
+          <td><a href="/position/<%= position.id%>"><%= position.company.name %></a></td>
         <% end%>
         <td><%= position.application_date %></td>
       </tr>
