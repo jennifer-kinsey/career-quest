@@ -315,6 +315,7 @@ post "/contacts" do
     phone: params["contact-phone"],
     email: params["contact-email"],
     linkedin: params["contact-linkedin"],
+    twitter_handle: params['twitter_handle'],
     notes: params["contact-notes"],
     user_detail_id: current_user.id,
     company_id: params["company-id"]
@@ -367,6 +368,7 @@ patch "/contacts" do
     phone: params["contact-phone"],
     email: params["contact-email"],
     linkedin: params["contact-linkedin"],
+    twitter_handle: params['twitter_handle'],
     notes: params["contact-notes"],
     user_detail_id: current_user.id,
     company_id: params["company-id"]

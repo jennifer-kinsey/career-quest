@@ -5,3 +5,17 @@ body {
 .nav>li>a {
   margin: 10px 0;
 }
+
+h1, h2, h3 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: lighter;
+}
+
+.root {
+  font-family: 'Work Sans', sans-serif;
+  padding-left: 20px;
+}
+
+#quest-start {
+  text-align: center
+}
