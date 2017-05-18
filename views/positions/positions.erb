@@ -8,6 +8,7 @@
        <th><a href="/position/by_title">Title</a></th>
        <th><a href="/position/by_company">Company</a></th>
        <th><a href="/position/by_status">Application Status</a></th>
+       <th><a href="/position/by_date">Application Date</a></th>
        <th><a href="/position/by_qualification">Am I Qualified?</a></th>
      </tr>
     </thead>
@@ -19,6 +20,7 @@
             <td><%= position.company.name %></td>
           <% end%>
           <td><%= position.application_status %></td>
+          <td><%= position.application_date %></td>
           <td><%= position.qualifications %></td>
        </tr>
 

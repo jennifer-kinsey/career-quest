@@ -132,6 +132,7 @@ post '/users/add_new_position' do
   @new_position = Position.create({
     title: params['job_title'],
     application_status: params['application_status'],
+    application_date: params['application_date'],
     description: params['description'],
     est_salary: params['est_salary'],
     url: params['url'],
@@ -305,6 +306,15 @@ get '/position/by_status' do
   end
 end
 
+get '/position/by_date' do
+  if logged_in?
+    @positions = current_user.positions.sort_by{|position| position.application_date || 0}
+    erb :"positions/positions"
+  else
+    erb :error
+  end
+end
+
 get '/position/:id' do
   @position = Position.find(params['id'])
   erb :"/positions/position"
@@ -319,7 +329,8 @@ patch '/position/:id/edit' do
   @position = Position.find(params['id'])
   @position.update({
     title: params['job_title'],
-    application_status: params["application_status"],
+    application_status: params['application_status'],
+    application_date: params['application_date'],
     description: params['description'],
     offer: params['offer'],
     schedule: params['schedule'],
