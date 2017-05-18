@@ -324,26 +324,26 @@ end
 
 get "/contact/:id" do
   @contact = Contact.find(params["id"])
-  @tweets = Tweet.all
+# binding.pry
+  # @tweets = Tweet.all
   @count = 0
   erb :"/contacts/contact"
 end
 
 post '/tweets' do
-# binding.pry
   @contact = Contact.find(params['contact-id'])
   @count = params['count'].to_i
   @user = params['user']
   tweets = client.user_timeline(@user, count: @count)
   sweetweets = Hash.new
   tweets.each {|tweet| sweetweets.store(tweet.full_text, tweet.retweet_count) }
-  sweetweets.each {|t, r| Tweet.create({tweet: t, retweet: r, handle: @user})}
+  sweetweets.each {|t, r| @contact.tweets.create({tweet: t, retweet: r, handle: @user})}
   redirect "/contact/#{@contact.id}"
 end
 
 delete '/tweet/:id/delete' do
   @contact = Contact.find(params['contact-id'])
-  tweet = Tweet.find(params['id'].to_i)
+  tweet = @contact.tweets.find(params['id'].to_i)
   tweet.delete
   redirect "/contact/#{@contact.id}"
 end

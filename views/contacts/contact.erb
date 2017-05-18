@@ -28,14 +28,14 @@
 
     <br>
     <% num = 0 %>
-    <% if @tweets.any? %>
+    <% if @contact.tweets.any? %>
       <form class="" action="/clear_tweets" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="contact-id" value="<%= @contact.id %>">
         <button class="btn btn-default" href="/">clear all</button>
       </form>
       <hr>
-      <% @tweets.each do |tweet| %>
+      <% @contact.tweets.each do |tweet| %>
         <% num += 1 %>
         <p><%= num %>. <b><%= tweet.handle %>:</b> <%= tweet.tweet %></p>
         <p>retweets: <%= tweet.retweet %></p>
