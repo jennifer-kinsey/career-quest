@@ -36,10 +36,10 @@ get "/sessions/logout" do
   redirect "/"
 end
 
+#home page routing
 get "/users/home" do
   @user = current_user
-  if @user
-    @companies = @user.companies
+  if logged_in?
     @not_applied_positions = @user.positions.where(:application_status => "Not Applied")+ @user.positions.where(:application_status => "")
     erb :"/users/home"
   else
@@ -49,8 +49,7 @@ end
 
 get "/users/home/pending_response" do
   @user = current_user
-  if @user
-    @companies = @user.companies
+  if logged_in?
     @pending_response_positions = @user.positions.where(:application_status => "Applied, Pending Response")
     erb :"/users/home_pending_response"
   else
@@ -60,8 +59,7 @@ end
 
 get "/users/home/in_progress" do
   @user = current_user
-  if @user
-    @companies = @user.companies
+  if logged_in?
     @in_progress_positions = @user.positions.where(:application_status => "Applied, In Progress")
     erb :"/users/home_in_progress"
   else
@@ -71,8 +69,7 @@ end
 
 get "/users/home/received_offer" do
   @user = current_user
-  if @user
-    @companies = @user.companies
+  if logged_in?
     @received_offer_positions = @user.positions.where(:application_status => "Received Offer")
     erb :"/users/home_received_offer"
   else
@@ -82,8 +79,7 @@ end
 
 get "/users/home/archived" do
   @user = current_user
-  if @user
-    @companies = @user.companies
+  if logged_in?
     @archived_positions = @user.positions.where(:application_status => "Archived")
     erb :"/users/home_archived"
   else
@@ -114,22 +110,22 @@ end
 
 post "/sessions" do
   @user = UserCredential.find_by(email: params["user-email"]).try(:authenticate, params["user-password"])
-  if @user
-    session[:user] = @user.id
-    redirect "/users/home"
+  session[:user] = @user.id
+  redirect "/users/home"
+end
+
+get "/users/new_position" do
+  @user = current_user
+  if logged_in?
+    erb :"/positions/add_new_position"
   else
     erb :error
   end
 end
 
-get "/users/new_position" do
-  @user = current_user
-  erb :"/positions/add_new_position"
-end
-
 post '/users/add_new_position' do
   @user = current_user
-  @new_position = Position.create({
+  @position = Position.create({
     title: params['job_title'],
     application_status: params['application_status'],
     application_date: params['application_date'],
@@ -141,7 +137,7 @@ post '/users/add_new_position' do
     qualifications: params["qualifications"]
   })
   @companies = @user.companies
-  if @new_position.save
+  if @position.save
     erb :"/companies/add_new_company"
   else
     erb :error
@@ -150,8 +146,12 @@ end
 
 get '/users/add_company' do
   @user = current_user
-  @new_position = Position.find(params['id'])
-  erb :"/companies/add_new_company"
+  if logged_in?
+    @position = Position.find(params['id'])
+    erb :"/companies/add_new_company"
+  else
+    erb :error
+  end
 end
 
 patch '/users/add_existing_company' do
@@ -169,7 +169,7 @@ end
 
 post '/users/add_new_company' do
   @user = current_user
-  @new_company = Company.create({
+  @company = Company.create({
     name: params['company_name'],
     location: params['location'],
     website: params['website'],
@@ -181,11 +181,11 @@ post '/users/add_new_company' do
     notes: params['notes'],
     user_detail_id: current_user.id,
   })
-  @user.companies.push(@new_company)
+  @user.companies.push(@company)
   position = Position.find(params['position-id'])
-  position.update({company_id: @new_company.id })
-  @new_company.positions.push(position)
-  if @new_company.save
+  position.update({company_id: @company.id })
+  @company.positions.push(position)
+  if @company.save
     redirect "/users/positions"
   else
     erb :error
@@ -194,7 +194,7 @@ end
 
 get '/users/companies' do
   @user = current_user
-  if !@user
+  if !logged_in?
     erb :error
   else
     @companies = @user.companies
@@ -204,7 +204,7 @@ end
 
 post "/users/new_company_companies_page" do
   @user = current_user
-  @new_company = Company.create({
+  @company = Company.create({
     name: params['company_name'],
     location: params['location'],
     website: params['website'],
@@ -216,9 +216,8 @@ post "/users/new_company_companies_page" do
     notes: params['notes'],
     user_detail_id: current_user.id,
   })
- # we want to push
-  @user.companies.push(@new_company)
-  if @new_company.save
+  @user.companies.push(@company)
+  if @company.save
     redirect "/users/companies"
   else
     erb :error
@@ -226,14 +225,22 @@ post "/users/new_company_companies_page" do
 end
 
 get '/company/:id' do
-  @company = Company.find(params['id'])
-  @positions = @company.positions
-  erb :"/companies/company"
+  if logged_in?
+    @company = Company.find(params['id'])
+    @positions = @company.positions
+    erb :"/companies/company"
+  else
+    erb :error
+  end
 end
 
 get '/company/:id/edit' do
-  @company = Company.find(params['id'])
-  erb :"/companies/company_edit"
+  if logged_in?
+    @company = Company.find(params['id'])
+    erb :"/companies/company_edit"
+  else
+    erb :error
+  end
 end
 
 patch '/company/:id/edit' do
@@ -250,7 +257,6 @@ patch '/company/:id/edit' do
     notes: params['notes'],
     user_detail_id: current_user.id,
   })
-  # binding.pry
   redirect "/company/#{@company.id}"
 end
 
@@ -261,7 +267,6 @@ delete '/company/:id/delete' do
 end
 
 get '/users/positions' do
-
   if logged_in?
     @positions = current_user.positions
     erb :"positions/positions"
@@ -316,13 +321,21 @@ get '/position/by_date' do
 end
 
 get '/position/:id' do
-  @position = Position.find(params['id'])
-  erb :"/positions/position"
+  if logged_in?
+    @position = Position.find(params['id'])
+    erb :"/positions/position"
+  else
+    erb :error
+  end
 end
 
 get '/position/:id/edit' do
-  @position = Position.find(params['id'])
-  erb :"/positions/position_edit"
+  if logged_in?
+    @position = Position.find(params['id'])
+    erb :"/positions/position_edit"
+  else
+    erb :error
+  end
 end
 
 patch '/position/:id/edit' do
@@ -350,7 +363,7 @@ delete '/position/:id/delete' do
 end
 
 get "/contacts" do
-  if current_user
+  if logged_in?
     @contacts = current_user.contacts
     erb :"contacts/contacts"
   else
@@ -359,8 +372,12 @@ get "/contacts" do
 end
 
 get "/contacts/add" do
-  @companies = current_user.companies
-  erb :"contacts/add_contact"
+  if logged_in?
+    @companies = current_user.companies
+    erb :"contacts/add_contact"
+  else
+    erb :error
+  end
 end
 
 post "/contacts" do
@@ -378,9 +395,13 @@ post "/contacts" do
 end
 
 get "/contact/:id" do
-  @contact = Contact.find(params["id"])
-  @count = 0
-  erb :"/contacts/contact"
+  if logged_in?
+    @contact = Contact.find(params["id"])
+    @count = 0
+    erb :"/contacts/contact"
+  else
+    error :erb
+  end
 end
 
 post '/tweets' do
@@ -409,9 +430,13 @@ delete '/clear_tweets' do
 end
 
 get "/contacts/edit/:id" do
-  @contact = Contact.find(params["id"])
-  @companies = current_user.companies
-  erb :"/contacts/edit_contact"
+  if logged_in?
+    @contact = Contact.find(params["id"])
+    @companies = current_user.companies
+    erb :"/contacts/edit_contact"
+  else
+    erb :error
+  end
 end
 
 patch "/contacts" do
@@ -435,11 +460,9 @@ delete "/contacts/delete/:id" do
   redirect "/contacts"
 end
 
-
 get '/users/correspondences' do
-  @user = current_user
-  @correspondences = @user.correspondences
-  if @user
+  if logged_in?
+    @user = current_user
     @correspondences = @user.correspondences
     erb :"correspondences/correspondences"
   else
@@ -448,11 +471,15 @@ get '/users/correspondences' do
 end
 
 get '/correspondence/new' do
-  @user = current_user
-  @companies = @user.companies
-  @positions = @user.positions
-  @contacts = @user.contacts
-  erb :"correspondences/add_correspondence"
+  if logged_in?
+    @user = current_user
+    @companies = @user.companies
+    @positions = @user.positions
+    @contacts = @user.contacts
+    erb :"correspondences/add_correspondence"
+  else
+    erb :error
+  end
 end
 
 post '/correspondence/new' do
@@ -469,8 +496,12 @@ post '/correspondence/new' do
 end
 
 get '/correspondence/:id' do
-  @correspondence = Correspondence.find(params['id'])
-  erb :"correspondences/correspondence"
+  if logged_in?
+    @correspondence = Correspondence.find(params['id'])
+    erb :"correspondences/correspondence"
+  else
+    erb :error
+  end
 end
 
 get '/correspondence/:id/edit' do
@@ -501,13 +532,21 @@ end
 
 # Settings Routes
 get "/users/settings" do
-  @user = current_user
-  erb :"/users/settings"
+  if logged_in?
+    @user = current_user
+    erb :"/users/settings"
+  else
+    erb :error
+  end
 end
 
 get "/users/settings/edit" do
-  @user = current_user
-  erb :"/users/settings_edit"
+  if logged_in?
+    @user = current_user
+    erb :"/users/settings_edit"
+  else
+    erb :error
+  end
 end
 
 patch "/users/settings/edit" do
