@@ -14,10 +14,10 @@
     <p>Notes: <%= @position.notes %></p>
     <p>Resume: <a href="http://<%= @position.resume %>"><%= @position.resume %></a>
       </p>
-    <p>Cover Letter: <a href="http://<%= @position.cover_letter %>"><%= @position.cover_letter %></a></p>
+    <p>Cover Letter: <a href="http://<%= @position.cover_letter %>" target="_blank"><%= @position.cover_letter %></a></p>
 
     <a class="btn btn-default" href="/position/<%= @position.id %>/edit">Update Position Info</a>
-    <a href="/correspondence/new" class='btn btn-default'>Add Correspondence</a>
+    <a href="/correspondence/new" class='btn btn-default' target="_blank">Add Correspondence</a>
 
   </div>
   <div class="col-sm-8">

@@ -2,7 +2,9 @@
 
 <div class="well">
   <h3>Tip of the Day:</h3>
-  <%= Quote.order("RANDOM()").first.tip%>
+  <div id="tip">
+    <%= Quote.order("RANDOM()").first.tip%>
+  </div>
 </div><br>
 
 <h3>Your Positions: </h3>
@@ -35,4 +37,3 @@
     <% end %>
   </tbody>
 </table>
-

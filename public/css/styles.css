@@ -16,6 +16,23 @@ h1, h2, h3 {
   padding-left: 20px;
 }
 
+.well {
+  background-color: rgba(158, 39, 39, 0.6);
+  /*color: rgb(230, 230, 230);*/
+}
+
+.navbar {
+  background-color: rgb(247, 252, 255);
+}
+
+#tip {
+  font-family: 'Work Sans', sans-serif;
+}
+
 #quest-start {
-  text-align: center
+  text-align: center;
+}
+
+a {
+  color: rgb(99, 99, 99);
 }

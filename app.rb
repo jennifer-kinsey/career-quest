@@ -157,6 +157,10 @@ get '/users/companies' do
   end
 end
 
+get '/brand_new_company' do
+  erb :"companies/brand_new_company"
+end
+
 post "/users/new_company_companies_page" do
   @user = current_user
   @new_company = Company.create({

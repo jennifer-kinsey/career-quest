@@ -16,9 +16,9 @@
 
          <tr>
            <td><a href="/correspondence/<%= correspondence.id %>"><%= correspondence.action %></a></td>
-           <td><%= correspondence.contact ? "#{correspondence.contact.name}" : nil%></td>
-           <td><%= correspondence.position ? "#{correspondence.position.title}" : nil%></td>
-          <td> <%= correspondence.company ? "#{correspondence.company.name}" : nil%></td>
+           <td><%= correspondence.contact ? "#{correspondence.contact.name}" : "no contact listed"%></td>
+           <td><%= correspondence.position ? "#{correspondence.position.title}" : "no position listed"%></td>
+          <td> <%= correspondence.company ? "#{correspondence.company.name}" : "no company listed"%></td>
          </tr>
 
        <% end %>

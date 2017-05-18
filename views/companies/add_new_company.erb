@@ -1,6 +1,6 @@
 <h2>Step 2 of 2: Add a company: </h2>
 
-<% if @user.companies != nil %>
+<% if @user.companies.any? %>
   <p>Choose a company or add a new company below: </p>
   <form action="/users/add_existing_company" method="post">
     <input type="hidden" name="_method" value="patch">
@@ -14,10 +14,12 @@
     <br>
     <button type="submit" class="btn btn-info" name="button">Add to Application</button>
   </form>
+  <hr>
 <% else %>
+<br>
   <p>No companies exist yet!</p>
 <% end %>
-<br><hr>
+<br>
 
 
 <p>Add a new company:</p>
