@@ -16,9 +16,7 @@
      <% @positions.each do |position| %>
        <tr>
           <td><a href="/position/<%= position.id %>"><%= position.title %></a></td>
-          <% if position.company %>
-            <td><%= position.company.name %></td>
-          <% end%>
+          <td><%= position.company ? position.company.name : nil%></td>
           <td><%= position.application_status %></td>
           <td><%= position.application_date %></td>
           <td><%= position.qualifications %></td>
