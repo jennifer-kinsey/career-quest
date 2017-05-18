@@ -9,6 +9,8 @@ gem "sinatra"
 gem "pry-byebug"
 gem "rb-readline"
 gem "bcrypt"
+gem 'twitter'
+gem 'rest-client'
 
 group :test do
   gem "rspec"
