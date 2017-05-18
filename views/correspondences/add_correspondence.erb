@@ -21,7 +21,7 @@
   <select name="position-id" class="form-control">
     <option> </option>
     <% @positions.each do |position| %>
-      <option value="<%= position.id %>"><%= position.title %>, <%= position.company.name %></option>
+      <option value="<%= position.id %>"><%= position.company ? "#{position.title}, #{position.company.name}" : "#{position.title}" %></option>
     <% end %>
   </select>
   <br>
