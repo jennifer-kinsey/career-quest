@@ -324,8 +324,6 @@ end
 
 get "/contact/:id" do
   @contact = Contact.find(params["id"])
-# binding.pry
-  # @tweets = Tweet.all
   @count = 0
   erb :"/contacts/contact"
 end
@@ -350,7 +348,7 @@ end
 
 delete '/clear_tweets' do
   @contact = Contact.find(params['contact-id'])
-  tweets = Tweet.all
+  tweets = @contact.tweets
   tweets.each {|t| t.delete }
   redirect "/contact/#{@contact.id}"
 end
