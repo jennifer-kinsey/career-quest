@@ -15,29 +15,24 @@
 </ul>
 
 
-  <table class="table">
-    <thead>
-     <tr>
-       <th>Position</th>
-       <th>Company</th>
-       <th>Application Date</th>
-     </tr>
-    </thead>
-    <tbody>
-     <% @not_applied_positions.each do |position| %>
-       <tr>
-          <td><%= position.title %></td>
-          <% if position.company %>
-            <td><%= position.company.name %></td>
-          <% end%>
-          <td><%= position.application_date %></td>
-       </tr>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Company</th>
+      <th>Application Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @not_applied_positions.each do |position| %>
+      <tr>
+        <td><%= position.title %></td>
+        <% if position.company %>
+          <td><%= position.company.name %></td>
+        <% end%>
+        <td><%= position.application_date %></td>
+      </tr>
 
-     <% end %>
-    </tbody>
-    </table>
-
-
-<% else %>
-  <h5>You don't have any positions of this status</h5>
-<% end %>
+    <% end %>
+  </tbody>
+</table>
