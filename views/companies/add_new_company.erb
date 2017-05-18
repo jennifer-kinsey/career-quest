@@ -4,7 +4,7 @@
   <p>Choose a company or add a new company below: </p>
   <form action="/users/add_existing_company" method="post">
     <input type="hidden" name="_method" value="patch">
-    <input type="hidden" name="position-id" value="<%= @new_position.id %>">
+    <input type="hidden" name="position-id" value="<%= @position.id %>">
     <label for="companies">Companies: </label>
     <select class="form-control" name="company-id">
       <% @user.companies.each do |company| %>
@@ -25,7 +25,7 @@
 <p>Add a new company:</p>
 
 <form action="/users/add_new_company" method="post">
-<input type="hidden" name="position-id" value="<%= @new_position.id %>">
+<input type="hidden" name="position-id" value="<%= @position.id %>">
 
 <label for="company_name">Company Name: </label>
 <input class="form-control" type="text" name="company_name" required><br>
