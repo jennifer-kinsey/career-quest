@@ -54,13 +54,6 @@ Sinatra will now make this project available in your browser by going to localho
 |Keep track of your correspondence with your contacts! | interview scheduled for next Tuesday| Your schedule has been updated! |
 |Update your application status! | Offer made!| Success! |
 
-## Screenshots
-
-**Store Page:**
-![Image ofScreenshot](public/img/.png)
-
-**Brand Page:**
-![Image ofScreenshot](public/img/.png)
 
 
 ## Built With
