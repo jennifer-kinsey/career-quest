@@ -9,7 +9,14 @@ This is an application for organizing your job search!  Users can create unique 
 * Jennifer Kinsey
 * Spencer Alan Ruiz
 
-schema as of 1:30pm 5/15
+### Screenshots
+My nerddom includes Star Trek and Zelda if you cannot tell:
+![screen shot 2017-09-20 at 10 56 22 pm](https://user-images.githubusercontent.com/26371824/30680899-19f247aa-9e57-11e7-8cab-7e9005acc4ae.png)
+![screen shot 2017-09-20 at 10 46 08 pm](https://user-images.githubusercontent.com/26371824/30680900-19f3cb02-9e57-11e7-87a4-7e77759cb625.png)
+![screen shot 2017-09-20 at 10 37 07 pm](https://user-images.githubusercontent.com/26371824/30680901-19f86c20-9e57-11e7-8768-ad4434c92626.png)
+![screen shot 2017-09-20 at 10 34 38 pm](https://user-images.githubusercontent.com/26371824/30680902-1a07f7ee-9e57-11e7-8b8d-b1090f87406a.png)
+
+### Schema
 ![schema](/public/img/schema.png)
 
 ### Prerequisites
