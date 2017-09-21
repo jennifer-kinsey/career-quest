@@ -31,7 +31,7 @@ Bundler
 
 Clone this repo by typing into the terminal:
 ```
-$ git clone https://github.com/spenceralan/career_quest.git
+$ git clone https://github.com/jennifer-kinsey/career_quest.git
 ```
 
 In a new terminal window, start postgres in the background:
